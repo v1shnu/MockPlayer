@@ -9,11 +9,11 @@
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:text="@string/create_flow"
-            android:onClick="selfDestruct"/>
+            android:onClick="createFlow"/>
     <Button
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:text="@string/play_flow"
-            android:onClick="selfDestruct"/>
+            android:onClick="playFlow"/>
 </LinearLayout>
 
