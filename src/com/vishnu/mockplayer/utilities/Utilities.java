@@ -1,4 +1,4 @@
-package com.vishnu.mockplayer;
+package com.vishnu.mockplayer.utilities;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -32,7 +32,7 @@ public class Utilities {
         try {
             imageStream = context.getContentResolver().openInputStream(receivedImage);
         } catch (FileNotFoundException e) {
-            Utilities.displayToast(context, "Error");
+            com.vishnu.mockplayer.utilities.Utilities.displayToast(context, "Error");
             e.printStackTrace();
         }
         return BitmapFactory.decodeStream(imageStream);
