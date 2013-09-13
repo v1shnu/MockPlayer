@@ -26,11 +26,15 @@ public class StoryDefiner extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_definer);
-        com.vishnu.mockplayer.utilities.Utilities.displayToast(getApplicationContext(), "Click the portion of the image you want to assign a task to");
+        Utilities.displayToast(getApplicationContext(), "Click the portion of the image you want to assign a task to");
         Uri receivedImage = getIntent().getParcelableExtra("image");
         Bitmap image = com.vishnu.mockplayer.utilities.Utilities.convertUriToImage(getApplicationContext(), receivedImage);
         CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
-        Utilities.displayToast(getApplicationContext(), "Image displayed");
         imageView.setImageBitmap(image);
+    }
+
+    public void assignTaskToSelectedPortion(View view) {
+        CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
+        Utilities.displayToast(getApplicationContext(), "Selected Area : "+"("+imageView.startX+", "+imageView.startY+") - ("+imageView.endX+", "+imageView.endY+")");
     }
 }
