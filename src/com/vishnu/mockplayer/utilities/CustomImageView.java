@@ -39,14 +39,22 @@ public class CustomImageView extends ImageView {
     public static int DRAW = 1;
     public static int EXPAND = 2;
     public static int MODE = DRAG;
+    public static int MINIMUM_DISTANCE = 20;
+    public static int EXPAND_BORDER = 0;
+    public static int CIRCLE_RADIUS = 10;
 
-    public int startX, startY, endX, endY, startDragX, dragX, startDragY, dragY, mode=0;
+    public float startX, startY, endX, endY, startDragX, dragX, startDragY, dragY;
 
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         try{
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    if(touchedOnBorder(event.getX(), event.getY())) {
+                        Utilities.log("Touched the border : "+EXPAND_BORDER);
+                        MODE = EXPAND;
+                        break;
+                    }
                     if(touchedInside(event.getX(), event.getY())) {
                         MODE = DRAG;
                         startDragX = (int) event.getX();
@@ -62,7 +70,6 @@ public class CustomImageView extends ImageView {
                     break;
                 case MotionEvent.ACTION_MOVE:
                     if(MODE == DRAG) {
-                        Utilities.log("Moving");
                         dragX = (int) event.getX()-startDragX;
                         dragY = (int) event.getY()-startDragY;
                         startDragX = (int) event.getX();
@@ -75,6 +82,16 @@ public class CustomImageView extends ImageView {
                     else if(MODE == DRAW) {
                         endX = (int) event.getX();
                         endY = (int) event.getY();
+                    }
+                    else if(MODE == EXPAND) {
+                        if(EXPAND_BORDER == 0)
+                            startY = event.getY();
+                        else if(EXPAND_BORDER == 1)
+                            endX = event.getX();
+                        else if(EXPAND_BORDER == 2)
+                            endY = event.getY();
+                        else if(EXPAND_BORDER == 3)
+                            startX = event.getX();
                     }
                     invalidate();
                     break;
@@ -97,10 +114,48 @@ public class CustomImageView extends ImageView {
         return x < Math.max(startX, endX) && x > Math.min(startX, endX) && y < Math.max(startY, endY) && y > Math.min(startY, endY);
     }
 
+    private boolean touchedOnBorder(float x, float y) {
+        //Higher horizontal line
+        if(isNearLine(y, startY) && isBetweenLines(startX, endX, x)) {
+            EXPAND_BORDER = 0;
+            return true;
+        }
+        //Second vertical line
+        if(isNearLine(x, endX) && isBetweenLines(startY, endY, y)) {
+            EXPAND_BORDER = 1;
+            return true;
+        }
+        //Lower horizontal line
+        if(isNearLine(y, endY) && isBetweenLines(startX, endX, x)) {
+            EXPAND_BORDER = 2;
+            return true;
+        }
+        //First vertical line
+        if(isNearLine(x, startX) && isBetweenLines(startY, endY, y)) {
+            EXPAND_BORDER = 3;
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isBetweenLines(float startLine, float endLine, float line) {
+        return (line >= startLine-MINIMUM_DISTANCE && line <= endLine+MINIMUM_DISTANCE);
+    }
+
+    private boolean isNearLine(float p1, float p2) {
+        return Math.abs(p1-p2) <= MINIMUM_DISTANCE;
+    }
+
+    private void constructRectangle(Canvas canvas) {
+        canvas.drawRect(Math.min(startX, endX), Math.min(startY, endY), Math.max(startX, endX), Math.max(startY, endY), paint);
+        canvas.drawCircle((startX+endX)/2, endY, CIRCLE_RADIUS, paint);
+        canvas.drawCircle(endX, (startY+endY)/2, CIRCLE_RADIUS, paint);
+        canvas.drawCircle((startX+endX)/2, startY, CIRCLE_RADIUS, paint);
+        canvas.drawCircle(startX, (startY+endY)/2, CIRCLE_RADIUS, paint);
+    }
+
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(MODE == DRAW || MODE == DRAG) {
-            canvas.drawRect(Math.min(startX, endX), Math.min(startY, endY), Math.max(startX, endX), Math.max(startY, endY), paint);
-        }
+        constructRectangle(canvas);
     }
 }
