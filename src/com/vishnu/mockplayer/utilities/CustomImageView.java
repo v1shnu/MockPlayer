@@ -18,6 +18,7 @@ import android.widget.ImageView;
 public class CustomImageView extends ImageView {
 
     Paint paint = new Paint();
+    Paint blurrer = new Paint();
 
     public CustomImageView(Context context, int startX) {
         super(context);
@@ -29,6 +30,8 @@ public class CustomImageView extends ImageView {
         paint.setColor(Color.rgb(87,151,238));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(10);
+        blurrer.setColor(Color.BLACK);
+        blurrer.setAlpha(150);
     }
 
     public CustomImageView(Context context, AttributeSet attrs, int defStyle) {
@@ -42,6 +45,7 @@ public class CustomImageView extends ImageView {
     public static int MINIMUM_DISTANCE = 20;
     public static int EXPAND_BORDER = 0;
     public static int CIRCLE_RADIUS = 10;
+    public static boolean PORTION_SELECTED = false;
 
     public float startX, startY, endX, endY, startDragX, dragX, startDragY, dragY;
 
@@ -50,6 +54,7 @@ public class CustomImageView extends ImageView {
         try{
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    PORTION_SELECTED = false;
                     if(touchedOnBorder(event.getX(), event.getY())) {
                         Utilities.log("Touched the border : "+EXPAND_BORDER);
                         MODE = EXPAND;
@@ -69,6 +74,15 @@ public class CustomImageView extends ImageView {
                     invalidate();
                     break;
                 case MotionEvent.ACTION_MOVE:
+                    if(MODE != EXPAND && ((distanceBetweenPoints(event.getX(), event.getY(), startX, startY) < MINIMUM_DISTANCE) ||
+                            (Math.abs(startX - event.getX()) < MINIMUM_DISTANCE) ||
+                            (Math.abs(startY- event.getY()) < MINIMUM_DISTANCE)
+                    )) {
+                        PORTION_SELECTED = false;
+                        invalidate();
+                        break;
+                    }
+                    PORTION_SELECTED = true;
                     if(MODE == DRAG) {
                         dragX = (int) event.getX()-startDragX;
                         dragY = (int) event.getY()-startDragY;
@@ -84,18 +98,27 @@ public class CustomImageView extends ImageView {
                         endY = (int) event.getY();
                     }
                     else if(MODE == EXPAND) {
-                        if(EXPAND_BORDER == 0)
-                            startY = event.getY();
-                        else if(EXPAND_BORDER == 1)
-                            endX = event.getX();
-                        else if(EXPAND_BORDER == 2)
-                            endY = event.getY();
-                        else if(EXPAND_BORDER == 3)
-                            startX = event.getX();
+                        if(EXPAND_BORDER == 0) {
+                            if(startY < endY) startY = event.getY();
+                            else endY = event.getY();
+                        }
+                        else if(EXPAND_BORDER == 1) {
+                            if(endX > startX) endX = event.getX();
+                            else startX = event.getX();
+                        }
+                        else if(EXPAND_BORDER == 2) {
+                            if(endY > startY) endY = event.getY();
+                            else startY = event.getY();
+                        }
+                        else if(EXPAND_BORDER == 3) {
+                            if(startX<endX) startX = event.getX();
+                            else endX = event.getX();
+                        }
                     }
                     invalidate();
                     break;
                 case MotionEvent.ACTION_UP:
+                    PORTION_SELECTED = true;
                     if(MODE == DRAG)
                         Utilities.log("Moved to : "+"("+startX+", "+startY+") - ("+endX+", "+endY+")");
                     else
@@ -116,29 +139,31 @@ public class CustomImageView extends ImageView {
 
     private boolean touchedOnBorder(float x, float y) {
         //Higher horizontal line
-        if(isNearLine(y, startY) && isBetweenLines(startX, endX, x)) {
+        if(isNearLine(y, Math.min(startY, endY)) && isBetweenLines(startX, endX, x)) {
             EXPAND_BORDER = 0;
             return true;
         }
         //Second vertical line
-        if(isNearLine(x, endX) && isBetweenLines(startY, endY, y)) {
+        if(isNearLine(x, Math.max(startX, endX)) && isBetweenLines(startY, endY, y)) {
             EXPAND_BORDER = 1;
             return true;
         }
         //Lower horizontal line
-        if(isNearLine(y, endY) && isBetweenLines(startX, endX, x)) {
+        if(isNearLine(y, Math.max(startY, endY)) && isBetweenLines(startX, endX, x)) {
             EXPAND_BORDER = 2;
             return true;
         }
         //First vertical line
-        if(isNearLine(x, startX) && isBetweenLines(startY, endY, y)) {
+        if(isNearLine(x, Math.min(startX, endX)) && isBetweenLines(startY, endY, y)) {
             EXPAND_BORDER = 3;
             return true;
         }
         return false;
     }
 
-    private boolean isBetweenLines(float startLine, float endLine, float line) {
+    private boolean isBetweenLines(float line1, float line2, float line) {
+        float startLine = Math.min(line1, line2);
+        float endLine = Math.max(line1, line2);
         return (line >= startLine-MINIMUM_DISTANCE && line <= endLine+MINIMUM_DISTANCE);
     }
 
@@ -146,16 +171,25 @@ public class CustomImageView extends ImageView {
         return Math.abs(p1-p2) <= MINIMUM_DISTANCE;
     }
 
+    private float distanceBetweenPoints(float x1, float y1, float x2, float y2) {
+        return (float) Math.sqrt(((x2-x1)*(x2-x1)) + ((y2-y1)*(y2-y1)));
+    }
+
     private void constructRectangle(Canvas canvas) {
+        canvas.drawRect(0, 0, Math.min(startX, endX), canvas.getHeight(), blurrer);
+        canvas.drawRect(Math.max(startX, endX), 0, canvas.getWidth(), canvas.getHeight(), blurrer);
+        canvas.drawRect(Math.min(startX, endX), 0, Math.max(startX, endX), Math.min(startY, endY), blurrer);
+        canvas.drawRect(Math.min(startX, endX), Math.max(startY, endY), Math.max(startX, endX), canvas.getHeight(), blurrer);
         canvas.drawRect(Math.min(startX, endX), Math.min(startY, endY), Math.max(startX, endX), Math.max(startY, endY), paint);
-        canvas.drawCircle((startX+endX)/2, endY, CIRCLE_RADIUS, paint);
-        canvas.drawCircle(endX, (startY+endY)/2, CIRCLE_RADIUS, paint);
-        canvas.drawCircle((startX+endX)/2, startY, CIRCLE_RADIUS, paint);
-        canvas.drawCircle(startX, (startY+endY)/2, CIRCLE_RADIUS, paint);
+        canvas.drawCircle((startX + endX) / 2, endY, CIRCLE_RADIUS, paint);
+        canvas.drawCircle(endX, (startY + endY) / 2, CIRCLE_RADIUS, paint);
+        canvas.drawCircle((startX + endX) / 2, startY, CIRCLE_RADIUS, paint);
+        canvas.drawCircle(startX, (startY + endY) / 2, CIRCLE_RADIUS, paint);
     }
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        constructRectangle(canvas);
+        if(PORTION_SELECTED)
+            constructRectangle(canvas);
     }
 }
