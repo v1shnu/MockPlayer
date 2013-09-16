@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
     }
 
     public void createFlow(View view) {
-        Intent intent = new Intent(this, FlowCreatorActivity.class);
+        Intent intent = new Intent(this, FlowNamingActivity.class);
         startActivity(intent);
     }
 

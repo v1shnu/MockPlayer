@@ -1,7 +1,9 @@
 package com.vishnu.mockplayer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -20,8 +22,11 @@ import java.io.InputStream;
  */
 public class FlowCreatorActivity extends Activity {
     private static final int SELECT_PHOTO = 100;
+    SharedPreferences preferences;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);;
+        setTitle(preferences.getString(getString(R.string.flow_name), "[Untitled Flow]"));
         setContentView(R.layout.activity_flow_player);
     }
 

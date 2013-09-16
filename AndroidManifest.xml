@@ -15,5 +15,6 @@
         <activity android:name=".FlowCreatorActivity"/>
         <activity android:name=".FlowPlayerActivity"/>
         <activity android:name=".StoryDefiner"/>
+        <activity android:name=".FlowNamingActivity"/>
     </application>
 </manifest>
