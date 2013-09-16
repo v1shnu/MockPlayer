@@ -17,7 +17,7 @@ import java.util.Date;
  * Time: 4:59 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DBController {
+public class DatabaseHandler {
     private DatabaseHelper dbHelper;
     private SQLiteDatabase database;
     public final static String MOCK_TABLE = "mocks";
@@ -26,21 +26,20 @@ public class DBController {
     public final static String MOCK_TIMESTAMP = "timestamp";
     SimpleDateFormat dateFormatter = new SimpleDateFormat("ddMMyyyyHHmmsss");
 
-    public DBController(Context context) {
+    public DatabaseHandler(Context context) {
         dbHelper = new DatabaseHelper(context);
         database = dbHelper.getWritableDatabase();
     }
 
-    public long createMock(String id, String name) {
+    public long createMock(String name) {
         ContentValues values = new ContentValues();
-        values.put(MOCK_ID, id);
         values.put(MOCK_NAME, name);
         values.put(MOCK_TIMESTAMP, dateFormatter.format(new Date()));
         return database.insert(MOCK_TABLE, null, values);
     }
 
-    public Mock selectMock(int id) {
-        String[] columns = new String[] {MOCK_ID, MOCK_NAME};
+    public Mock selectMockById(int id) {
+        String[] columns = new String[] {MOCK_ID, MOCK_NAME, MOCK_TIMESTAMP};
         Cursor cursor = database.query(true, MOCK_TABLE, columns, MOCK_ID + "=?", new String[] {String.valueOf(id)}, null, null, null, null);
         if(cursor != null) {
             cursor.moveToFirst();
@@ -48,6 +47,17 @@ public class DBController {
         }
         return null;
     }
+
+    public Mock selectMockByName(String name) {
+        String[] columns = new String[] {MOCK_ID, MOCK_NAME, MOCK_TIMESTAMP};
+        Cursor cursor = database.query(true, MOCK_TABLE, columns, MOCK_NAME+ "=?", new String[] {name}, null, null, null, null);
+        if(cursor != null) {
+            cursor.moveToFirst();
+            return new Mock(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+        }
+        return null;
+    }
+
     public ArrayList<Mock> selectAllMocks() {
         ArrayList <Mock> mockList = new ArrayList<Mock>();
         String selectQuery = "SELECT * FROM "+MOCK_TABLE;

@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "MockPlayerDB";
     private static final int DATABASE_VERSION = 2;
-    private static final String DATABASE_CREATE = "create table mocks ( id integer primary key,name text not null);";
+    private static final String DATABASE_CREATE = "create table mocks ( id integer primary key autoincrement not null, name text not null, timestamp text not null);";
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import com.vishnu.mockplayer.utilities.DatabaseHandler;
+import com.vishnu.mockplayer.utilities.DatabaseHelper;
 import com.vishnu.mockplayer.utilities.Utilities;
 
 /**
@@ -26,8 +28,12 @@ public class FlowNamingActivity extends Activity {
 
     public void startFlowCreation(View view) {
         EditText flowName = (EditText) findViewById(R.id.activity_name);
-        Utilities.log(flowName.getText().toString());
-        preferences.edit().putString(getString(R.string.flow_name), flowName.getText().toString()).commit();
+        String activityName = flowName.getText().toString();
+        preferences.edit().putString(getString(R.string.flow_name), activityName).commit();
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        long id = db.createMock(activityName);
+        Utilities.log(db.selectMockById(2).getName());
+        Utilities.log(db.selectMockByName("Test").getTimestamp());
         Intent intent = new Intent(this, FlowCreatorActivity.class);
         startActivity(intent);
     }
