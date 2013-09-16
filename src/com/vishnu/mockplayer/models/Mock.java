@@ -1,5 +1,7 @@
 package com.vishnu.mockplayer.models;
 
+import java.sql.Timestamp;
+
 /**
  * Created with IntelliJ IDEA.
  * User: root
@@ -10,10 +12,12 @@ package com.vishnu.mockplayer.models;
 public class Mock {
     private int id;
     private String name;
+    private Timestamp timestamp;
 
-    public Mock(int id, String name) {
+    public Mock(int id, String name, Timestamp timestamp) {
         this.id = id;
         this.name = name;
+        this.timestamp = timestamp;
     }
 
     public int getId() {
@@ -24,11 +28,19 @@ public class Mock {
         return name;
     }
 
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }
