@@ -12,9 +12,9 @@ import java.sql.Timestamp;
 public class Mock {
     private int id;
     private String name;
-    private Timestamp timestamp;
+    private String timestamp;
 
-    public Mock(int id, String name, Timestamp timestamp) {
+    public Mock(int id, String name, String timestamp) {
         this.id = id;
         this.name = name;
         this.timestamp = timestamp;
@@ -28,7 +28,7 @@ public class Mock {
         return name;
     }
 
-    public Timestamp getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
@@ -40,7 +40,7 @@ public class Mock {
         this.name = name;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 }

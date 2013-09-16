@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.vishnu.mockplayer.models.Mock;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +23,8 @@ public class DBController {
     public final static String MOCK_TABLE = "mocks";
     public final static String MOCK_ID = "id";
     public final static String MOCK_NAME = "name";
+    public final static String MOCK_TIMESTAMP = "timestamp";
+    SimpleDateFormat dateFormatter = new SimpleDateFormat("ddMMyyyyHHmmsss");
 
     public DBController(Context context) {
         dbHelper = new DatabaseHelper(context);
@@ -31,6 +35,7 @@ public class DBController {
         ContentValues values = new ContentValues();
         values.put(MOCK_ID, id);
         values.put(MOCK_NAME, name);
+        values.put(MOCK_TIMESTAMP, dateFormatter.format(new Date()));
         return database.insert(MOCK_TABLE, null, values);
     }
 
@@ -39,7 +44,7 @@ public class DBController {
         Cursor cursor = database.query(true, MOCK_TABLE, columns, MOCK_ID + "=?", new String[] {String.valueOf(id)}, null, null, null, null);
         if(cursor != null) {
             cursor.moveToFirst();
-            return new Mock(Integer.parseInt(cursor.getString(0)), cursor.getString(1));
+            return new Mock(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
         }
         return null;
     }
@@ -50,7 +55,7 @@ public class DBController {
         if(cursor.moveToFirst()) {
             do {
                 cursor.moveToFirst();
-                mockList.add(new Mock(Integer.parseInt(cursor.getString(0)), cursor.getString(1)));
+                mockList.add(new Mock(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2)));
             } while(cursor.moveToNext());
         }
         return mockList;
