@@ -25,6 +25,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/CustomImageView.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/CustomImageView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -32,7 +33,7 @@
     <ignored path=".idea/workspace.xml" />
     <file path="/fragment.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1379085326753" ignored="false" />
     <file path="/main.xml" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1378975178104" ignored="false" />
-    <file path="/Dummy.txt" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1379200313474" ignored="false" />
+    <file path="/Dummy.txt" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1379316003212" ignored="false" />
     <file path="/MainActivity.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1378975801264" ignored="false" />
     <file path="/Utilities.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1378984101387" ignored="false" />
     <file path="/FlowCreator.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1378982504397" ignored="false" />
@@ -42,7 +43,7 @@
     <file path="$PROJECT_DIR$/gen/com/vishnu/mockplayer/BuildConfig.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1378981031141" ignored="false" />
     <file path="/StoryDefiner.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1379078534044" ignored="false" />
     <file path="/FlowCreatorActivity.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1378990066762" ignored="false" />
-    <file path="/CustomImageView.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1379203732037" ignored="false" />
+    <file path="/CustomImageView.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1379316725478" ignored="false" />
     <file path="/activity_story_definer.xml" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1379077716224" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -155,7 +156,7 @@
       <file leaf-file-name="CustomImageView.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/CustomImageView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="139" column="20" selection-start="5385" selection-end="5385" vertical-scroll-proportion="0.3324397">
+            <state line="42" column="55" selection-start="1193" selection-end="1193" vertical-scroll-proportion="0.52487135">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -187,7 +188,7 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="43" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0">
+            <state line="5" column="39" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -224,14 +225,15 @@
         <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/FlowCreatorActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/activity_story_definer.xml" />
         <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/StoryDefiner.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/CustomImageView.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-1" />
-    <option name="width" value="1368" />
-    <option name="height" value="744" />
+    <option name="width" value="1922" />
+    <option name="height" value="1081" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -378,8 +380,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -398,8 +400,8 @@
     <property name="restartRequiresConfirmation" value="true" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="Android Application.MockPlayer">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -434,6 +436,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -460,19 +475,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -597,7 +599,11 @@
       <created>1379184926771</created>
       <updated>1379184926771</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Darkened the unselected area. Fixed bugs related to drag. A lot of them.">
+      <created>1379203954314</created>
+      <updated>1379203954314</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -621,7 +627,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1368" height="744" extended-state="6" />
+    <frame x="-1" y="0" width="1922" height="1081" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -637,14 +643,14 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27833334" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27795526" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2530303" sideWeight="0.7216667" order="0" side_tool="true" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32833335" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2529349" sideWeight="0.6723586" order="0" side_tool="true" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3276414" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276414" sideWeight="0.67022413" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.57310563" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -697,7 +703,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="The selection can now be expanded. Also added cute little circles to the border ^_^" />
+    <option name="LAST_COMMIT_MESSAGE" value="Darkened the unselected area. Fixed bugs related to drag. A lot of them." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -714,6 +720,7 @@
     <MESSAGE value="Added image selection" />
     <MESSAGE value="The selection can now be moved around. Boo yeah! B)" />
     <MESSAGE value="The selection can now be expanded. Also added cute little circles to the border ^_^" />
+    <MESSAGE value="Darkened the unselected area. Fixed bugs related to drag. A lot of them." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -741,13 +748,6 @@
       </provider>
       <provider editor-type-id="text-editor">
         <state line="5" column="47" selection-start="303" selection-end="303" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="43" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -832,9 +832,16 @@
         <state line="208" column="28" selection-start="10763" selection-end="10763" vertical-scroll-proportion="0.33197555" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="39" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/CustomImageView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="139" column="20" selection-start="5385" selection-end="5385" vertical-scroll-proportion="0.3324397">
+        <state line="42" column="55" selection-start="1193" selection-end="1193" vertical-scroll-proportion="0.52487135">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

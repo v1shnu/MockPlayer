@@ -29,7 +29,7 @@ public class CustomImageView extends ImageView {
         super(context, attrs);
         paint.setColor(Color.rgb(87,151,238));
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(10);
+        paint.setStrokeWidth(BORDER_THICKNESS);
         blurrer.setColor(Color.BLACK);
         blurrer.setAlpha(150);
     }
@@ -44,7 +44,8 @@ public class CustomImageView extends ImageView {
     public static int MODE = DRAG;
     public static int MINIMUM_DISTANCE = 20;
     public static int EXPAND_BORDER = 0;
-    public static int CIRCLE_RADIUS = 10;
+    public static int BORDER_THICKNESS = 5;
+    public static int CIRCLE_RADIUS = 5;
     public static boolean PORTION_SELECTED = false;
 
     public float startX, startY, endX, endY, startDragX, dragX, startDragY, dragY;
