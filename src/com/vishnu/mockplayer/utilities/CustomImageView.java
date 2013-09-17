@@ -41,9 +41,13 @@ public class CustomImageView extends ImageView {
     public static int DRAG = 0;
     public static int DRAW = 1;
     public static int EXPAND = 2;
+    public static int EXPAND_TYPE = 0;
+    public static int BORDER = 0;
+    public static int CORNER = 1;
     public static int MODE = DRAG;
     public static int MINIMUM_DISTANCE = 20;
     public static int EXPAND_BORDER = 0;
+    public static int EXPAND_CORNER = 0;
     public static int BORDER_THICKNESS = 5;
     public static int CIRCLE_RADIUS = 5;
     public static boolean PORTION_SELECTED = false;
@@ -56,9 +60,16 @@ public class CustomImageView extends ImageView {
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     PORTION_SELECTED = false;
-                    if(touchedOnBorder(event.getX(), event.getY())) {
+                    if(touchedCorner(event.getX(), event.getY())) {
+                        Utilities.log("Touched the corner : "+EXPAND_CORNER);
+                        MODE = EXPAND;
+                        EXPAND_TYPE = CORNER;
+                        break;
+                    }
+                    if(touchedBorder(event.getX(), event.getY())) {
                         Utilities.log("Touched the border : "+EXPAND_BORDER);
                         MODE = EXPAND;
+                        EXPAND_TYPE = BORDER;
                         break;
                     }
                     if(touchedInside(event.getX(), event.getY())) {
@@ -99,21 +110,49 @@ public class CustomImageView extends ImageView {
                         endY = (int) event.getY();
                     }
                     else if(MODE == EXPAND) {
-                        if(EXPAND_BORDER == 0) {
-                            if(startY < endY) startY = event.getY();
-                            else endY = event.getY();
+                        if(EXPAND_TYPE == BORDER) {
+                            if(EXPAND_BORDER == 0) {
+                                if(startY < endY) startY = event.getY();
+                                else endY = event.getY();
+                            }
+                            else if(EXPAND_BORDER == 1) {
+                                if(endX > startX) endX = event.getX();
+                                else startX = event.getX();
+                            }
+                            else if(EXPAND_BORDER == 2) {
+                                if(endY > startY) endY = event.getY();
+                                else startY = event.getY();
+                            }
+                            else if(EXPAND_BORDER == 3) {
+                                if(startX<endX) startX = event.getX();
+                                else endX = event.getX();
+                            }
                         }
-                        else if(EXPAND_BORDER == 1) {
-                            if(endX > startX) endX = event.getX();
-                            else startX = event.getX();
-                        }
-                        else if(EXPAND_BORDER == 2) {
-                            if(endY > startY) endY = event.getY();
-                            else startY = event.getY();
-                        }
-                        else if(EXPAND_BORDER == 3) {
-                            if(startX<endX) startX = event.getX();
-                            else endX = event.getX();
+                        else if(EXPAND_TYPE == CORNER) {
+                            if(EXPAND_CORNER == 0) {
+                                if(startX < endX) startX = event.getX();
+                                else endX = event.getX();
+                                if(startY < endY) startY = event.getY();
+                                else endY = event.getY();
+                            }
+                            else if(EXPAND_CORNER == 1) {
+                                if(startX > endX) startX = event.getX();
+                                else endX = event.getX();
+                                if(startY < endY) startY = event.getY();
+                                else endY = event.getY();
+                            }
+                            else if(EXPAND_CORNER == 2) {
+                                if(startX > endX) startX = event.getX();
+                                else endX = event.getX();
+                                if(startY > endY) startY = event.getY();
+                                else endY = event.getY();
+                            }
+                            else if(EXPAND_CORNER == 3) {
+                                if(startX < endX) startX = event.getX();
+                                else endX = event.getX();
+                                if(startY > endY) startY = event.getY();
+                                else endY = event.getY();
+                            }
                         }
                     }
                     invalidate();
@@ -138,7 +177,7 @@ public class CustomImageView extends ImageView {
         return x < Math.max(startX, endX) && x > Math.min(startX, endX) && y < Math.max(startY, endY) && y > Math.min(startY, endY);
     }
 
-    private boolean touchedOnBorder(float x, float y) {
+    private boolean touchedBorder(float x, float y) {
         //Higher horizontal line
         if(isNearLine(y, Math.min(startY, endY)) && isBetweenLines(startX, endX, x)) {
             EXPAND_BORDER = 0;
@@ -162,6 +201,30 @@ public class CustomImageView extends ImageView {
         return false;
     }
 
+    private boolean touchedCorner(float x, float y) {
+        //Top left corner
+        if(isNearPoint(x, y, Math.min(startX, endX), Math.min(startY, endY))) {
+            EXPAND_CORNER = 0;
+            return true;
+        }
+        //Top right corner
+        if(isNearPoint(x, y, Math.max(startX, endX), Math.min(startY, endY))) {
+            EXPAND_CORNER = 1;
+            return true;
+        }
+        //Bottom right corner
+        if(isNearPoint(x, y, Math.max(startX, endX), Math.max(startY, endY))) {
+            EXPAND_CORNER = 2;
+            return true;
+        }
+        //Bottom left corner
+        if(isNearPoint(x, y, Math.min(startX, endX), Math.max(startY, endY))) {
+            EXPAND_CORNER = 3;
+            return true;
+        }
+        return false;
+    }
+
     private boolean isBetweenLines(float line1, float line2, float line) {
         float startLine = Math.min(line1, line2);
         float endLine = Math.max(line1, line2);
@@ -170,6 +233,10 @@ public class CustomImageView extends ImageView {
 
     private boolean isNearLine(float p1, float p2) {
         return Math.abs(p1-p2) <= MINIMUM_DISTANCE;
+    }
+
+    private boolean isNearPoint(float x1, float y1, float x2, float y2) {
+        return distanceBetweenPoints(x1, y1, x2, y2) <= MINIMUM_DISTANCE;
     }
 
     private float distanceBetweenPoints(float x1, float y1, float x2, float y2) {
@@ -186,6 +253,10 @@ public class CustomImageView extends ImageView {
         canvas.drawCircle(endX, (startY + endY) / 2, CIRCLE_RADIUS, paint);
         canvas.drawCircle((startX + endX) / 2, startY, CIRCLE_RADIUS, paint);
         canvas.drawCircle(startX, (startY + endY) / 2, CIRCLE_RADIUS, paint);
+        canvas.drawCircle(Math.min(startX, endX), Math.min(startY, endY), CIRCLE_RADIUS, paint);
+        canvas.drawCircle(Math.max(startX, endX), Math.min(startY, endY), CIRCLE_RADIUS, paint);
+        canvas.drawCircle(Math.max(startX, endX), Math.max(startY, endY), CIRCLE_RADIUS, paint);
+        canvas.drawCircle(Math.min(startX, endX), Math.max(startY, endY), CIRCLE_RADIUS, paint);
     }
 
     protected void onDraw(Canvas canvas) {
