@@ -27,7 +27,7 @@ public class FlowCreatorActivity extends Activity {
         super.onCreate(savedInstanceState);
         preferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);;
         setTitle(preferences.getString(getString(R.string.flow_name), "[Untitled Flow]"));
-        setContentView(R.layout.activity_flow_player);
+        setContentView(R.layout.activity_flow_creator_start);
     }
 
     public void pickImage(View view) {

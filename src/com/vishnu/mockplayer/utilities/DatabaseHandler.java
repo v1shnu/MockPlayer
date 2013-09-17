@@ -21,7 +21,7 @@ public class DatabaseHandler {
     private DatabaseHelper dbHelper;
     private SQLiteDatabase database;
     public final static String MOCK_TABLE = "mocks";
-    public final static String MOCK_ID = "id";
+    public final static String MOCK_ID = "_id";
     public final static String MOCK_NAME = "name";
     public final static String MOCK_TIMESTAMP = "timestamp";
     SimpleDateFormat dateFormatter = new SimpleDateFormat("ddMMyyyyHHmmsss");
@@ -58,7 +58,16 @@ public class DatabaseHandler {
         return null;
     }
 
-    public ArrayList<Mock> selectAllMocks() {
+    public Cursor selectAllMocks() {
+        String selectQuery = "SELECT * FROM "+MOCK_TABLE;
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            return cursor;
+        }
+        return null;
+    }
+
+    public ArrayList<Mock> selectAllMocksAsList() {
         ArrayList <Mock> mockList = new ArrayList<Mock>();
         String selectQuery = "SELECT * FROM "+MOCK_TABLE;
         Cursor cursor = database.rawQuery(selectQuery, null);

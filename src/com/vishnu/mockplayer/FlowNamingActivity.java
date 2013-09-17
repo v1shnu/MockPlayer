@@ -32,8 +32,6 @@ public class FlowNamingActivity extends Activity {
         preferences.edit().putString(getString(R.string.flow_name), activityName).commit();
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         long id = db.createMock(activityName);
-        Utilities.log(db.selectMockById(2).getName());
-        Utilities.log(db.selectMockByName("Test").getTimestamp());
         Intent intent = new Intent(this, FlowCreatorActivity.class);
         startActivity(intent);
     }
