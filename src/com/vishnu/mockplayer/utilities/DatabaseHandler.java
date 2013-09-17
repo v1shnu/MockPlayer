@@ -8,6 +8,7 @@ import com.vishnu.mockplayer.models.Mock;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -24,7 +25,6 @@ public class DatabaseHandler {
     public final static String MOCK_ID = "_id";
     public final static String MOCK_NAME = "name";
     public final static String MOCK_TIMESTAMP = "timestamp";
-    SimpleDateFormat dateFormatter = new SimpleDateFormat("ddMMyyyyHHmmsss");
 
     public DatabaseHandler(Context context) {
         dbHelper = new DatabaseHelper(context);
@@ -34,7 +34,7 @@ public class DatabaseHandler {
     public long createMock(String name) {
         ContentValues values = new ContentValues();
         values.put(MOCK_NAME, name);
-        values.put(MOCK_TIMESTAMP, dateFormatter.format(new Date()));
+        values.put(MOCK_TIMESTAMP, java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime()));
         return database.insert(MOCK_TABLE, null, values);
     }
 
