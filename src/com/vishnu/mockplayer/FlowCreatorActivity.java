@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import com.vishnu.mockplayer.utilities.DatabaseHandler;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -25,8 +26,12 @@ public class FlowCreatorActivity extends Activity {
     SharedPreferences preferences;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);;
-        setTitle(preferences.getString(getString(R.string.flow_name), "[Untitled Flow]"));
+        String activityName = getIntent().getExtras().getString("activityName");
+        preferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        preferences.edit().putString(getString(R.string.flow_name), activityName).commit();
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        db.createMock(activityName);
+        setTitle(activityName);
         setContentView(R.layout.activity_flow_creator_start);
     }
 

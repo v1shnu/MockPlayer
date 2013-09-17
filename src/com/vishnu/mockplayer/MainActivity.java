@@ -1,11 +1,14 @@
 package com.vishnu.mockplayer;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity{
     /**
      * Called when the activity is first created.
      */
@@ -16,8 +19,8 @@ public class MainActivity extends Activity {
     }
 
     public void createFlow(View view) {
-        Intent intent = new Intent(this, FlowNamingActivity.class);
-        startActivity(intent);
+        FlowNamingDialog flowNamingDialog = new FlowNamingDialog(this);
+        flowNamingDialog.show(getFragmentManager(), "flowNamer");
     }
 
     public void playFlow(View view) {

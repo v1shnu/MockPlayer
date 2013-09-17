@@ -3,7 +3,7 @@
           package="com.vishnu.mockplayer"
           android:versionCode="1"
           android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="14"/>
+    <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="17"/>
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
         <activity android:name="MainActivity"
                   android:label="@string/app_name">
@@ -15,6 +15,5 @@
         <activity android:name=".FlowCreatorActivity"/>
         <activity android:name=".FlowPlayerActivity"/>
         <activity android:name=".StoryDefiner"/>
-        <activity android:name=".FlowNamingActivity"/>
     </application>
 </manifest>
