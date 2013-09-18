@@ -25,6 +25,12 @@ public class DatabaseHandler {
     public final static String MOCK_ID = "_id";
     public final static String MOCK_NAME = "name";
     public final static String MOCK_TIMESTAMP = "timestamp";
+    public final static String SCREEN_TABLE = "screens";
+    public final static String SCREEN_URI = "uri";
+    public final static String SCREEN_MOCK_ID = "mock_id";
+    public final static String ACTIONS_TABLE = "actions";
+    public final static String SOURCE_ID = "source_id";
+    public final static String DESTINATION_ID = "destination_id";
 
     public DatabaseHandler(Context context) {
         dbHelper = new DatabaseHelper(context);
@@ -36,6 +42,24 @@ public class DatabaseHandler {
         values.put(MOCK_NAME, name);
         values.put(MOCK_TIMESTAMP, java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime()));
         return database.insert(MOCK_TABLE, null, values);
+    }
+
+    public long createScreen(String uri, int mock_id) {
+        ContentValues values = new ContentValues();
+        values.put(SCREEN_URI, uri);
+        values.put(SCREEN_MOCK_ID, mock_id);
+        return database.insert(SCREEN_TABLE, null, values);
+    }
+
+    public long createAction(int source_id, float x1, float y1, float x2, float y2, int destination_id) {
+        ContentValues values = new ContentValues();
+        values.put(SOURCE_ID, source_id);
+        values.put("x1", x1);
+        values.put("y1", y1);
+        values.put("x2", x2);
+        values.put("y2", y2);
+        values.put(DESTINATION_ID, destination_id);
+        return database.insert(ACTIONS_TABLE, null, values);
     }
 
     public Mock selectMockById(int id) {
