@@ -23,14 +23,17 @@ import java.io.InputStream;
  */
 public class FlowCreatorActivity extends Activity {
     private static final int SELECT_PHOTO = 100;
+    private DatabaseHandler db;
+    private MockPlayerApplication application;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MockPlayerApplication app = MockPlayerApplication.getInstance();
+        db = new DatabaseHandler(getApplicationContext());
+        application = MockPlayerApplication.getInstance();
         String activityName = getIntent().getExtras().getString("activityName");
-        app.setMock_name(activityName);
-        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-        int mock_id = (int) db.createMock(activityName);
-        app.setMock_id(mock_id);
+        application.setMock_name(activityName);
+        int mock_id = db.createMock(activityName);
+        application.setMock_id(mock_id);
         setTitle(activityName);
         setContentView(R.layout.activity_flow_creator_start);
     }
@@ -49,6 +52,7 @@ public class FlowCreatorActivity extends Activity {
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
                     Intent storyDefinerIntent = new Intent(this, StoryDefiner.class);
+                    db.createScreen(imageReturnedIntent.toString(), application.getMock_id());
                     storyDefinerIntent.putExtra("image",selectedImage);
                     startActivity(storyDefinerIntent);
                 }

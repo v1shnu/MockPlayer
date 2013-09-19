@@ -24,5 +24,6 @@ public class FlowPlayerActivity extends ListActivity {
         int [] to = new int[] {R.id.name, R.id.time};
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.mock_list_item, db.selectAllMocks(), columns, to);
         setListAdapter(adapter);
+        db.close();
     }
 }
