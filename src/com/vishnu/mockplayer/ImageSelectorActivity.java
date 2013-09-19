@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import com.vishnu.mockplayer.utilities.CustomImageView;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
 
 import java.io.FileNotFoundException;
@@ -21,7 +22,7 @@ import java.io.InputStream;
  * Time: 2:17 PM
  * To change this template use File | Settings | File Templates.
  */
-public class FlowCreatorActivity extends Activity {
+public class ImageSelectorActivity extends Activity {
     private static final int SELECT_PHOTO = 100;
     private DatabaseHandler db;
     private MockPlayerApplication application;
@@ -30,12 +31,16 @@ public class FlowCreatorActivity extends Activity {
         super.onCreate(savedInstanceState);
         db = new DatabaseHandler(getApplicationContext());
         application = MockPlayerApplication.getInstance();
-        String activityName = getIntent().getExtras().getString("activityName");
-        application.setMock_name(activityName);
+        String activityName = application.getMock_name();
         int mock_id = db.createMock(activityName);
         application.setMock_id(mock_id);
         setTitle(activityName);
-        setContentView(R.layout.activity_flow_creator_start);
+        if(getIntent().getBooleanExtra("action", false)) {
+            CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
+            pickImage(null);
+        }
+        else
+            setContentView(R.layout.activity_flow_creator_start);
     }
 
     public void pickImage(View view) {

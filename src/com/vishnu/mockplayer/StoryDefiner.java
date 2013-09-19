@@ -1,16 +1,11 @@
 package com.vishnu.mockplayer;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 import com.vishnu.mockplayer.utilities.CustomImageView;
 import com.vishnu.mockplayer.utilities.Utilities;
 
@@ -23,18 +18,28 @@ import com.vishnu.mockplayer.utilities.Utilities;
  */
 public class StoryDefiner extends Activity {
 
+    Uri sourceImage;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_definer);
         Utilities.displayToast(getApplicationContext(), "Click the portion of the image you want to assign a task to");
-        Uri receivedImage = getIntent().getParcelableExtra("image");
-        Bitmap image = com.vishnu.mockplayer.utilities.Utilities.convertUriToImage(getApplicationContext(), receivedImage);
+        sourceImage = getIntent().getParcelableExtra("image");
+        Bitmap image = com.vishnu.mockplayer.utilities.Utilities.convertUriToImage(getApplicationContext(), sourceImage);
         CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
         imageView.setImageBitmap(image);
     }
 
     public void assignTaskToSelectedPortion(View view) {
         CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
-        Utilities.displayToast(getApplicationContext(), "Selected Area : "+"("+imageView.startX+", "+imageView.startY+") - ("+imageView.endX+", "+imageView.endY+")");
+        Utilities.displayToast(getApplicationContext(), "Selected the mock to be linked");
+        Intent intent = new Intent(this, ImageSelectorActivity.class);
+        intent.putExtra("action", true);
+        intent.putExtra("source", sourceImage);
+        intent.putExtra("x1", imageView.startX);
+        intent.putExtra("y1", imageView.startY);
+        intent.putExtra("x2", imageView.endX);
+        intent.putExtra("y2", imageView.endY);
+        startActivity(intent);
     }
 }

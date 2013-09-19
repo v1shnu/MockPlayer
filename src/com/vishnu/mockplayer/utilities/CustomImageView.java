@@ -19,25 +19,6 @@ public class CustomImageView extends ImageView {
 
     Paint paint = new Paint();
     Paint blurrer = new Paint();
-
-    public CustomImageView(Context context, int startX) {
-        super(context);
-        this.startX = startX;
-    }
-
-    public CustomImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        paint.setColor(Color.rgb(87,151,238));
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(BORDER_THICKNESS);
-        blurrer.setColor(Color.BLACK);
-        blurrer.setAlpha(150);
-    }
-
-    public CustomImageView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
-
     public static int DRAG = 0;
     public static int DRAW = 1;
     public static int EXPAND = 2;
@@ -53,6 +34,38 @@ public class CustomImageView extends ImageView {
     public static boolean PORTION_SELECTED = false;
 
     public float startX, startY, endX, endY, startDragX, dragX, startDragY, dragY;
+
+    public CustomImageView(Context context, int startX) {
+        super(context);
+        this.startX = startX;
+    }
+
+    public CustomImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        Utilities.log("Creating a new imageView");
+        paint.setColor(Color.rgb(87,151,238));
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(BORDER_THICKNESS);
+        blurrer.setColor(Color.BLACK);
+        blurrer.setAlpha(150);
+        DRAW = 1;
+        DRAG = 0;
+        EXPAND = 2;
+        EXPAND_TYPE = 0;
+        BORDER = 0;
+        CORNER = 1;
+        MODE = DRAG;
+        MINIMUM_DISTANCE = 20;
+        EXPAND_BORDER = 0;
+        EXPAND_CORNER = 0;
+        BORDER_THICKNESS = 5;
+        CIRCLE_RADIUS = 5;
+        PORTION_SELECTED = false;
+    }
+
+    public CustomImageView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
 
     @Override
     public boolean onTouchEvent(final MotionEvent event) {

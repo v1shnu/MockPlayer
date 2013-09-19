@@ -12,7 +12,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".FlowCreatorActivity"/>
+        <activity android:name=".ImageSelectorActivity"/>
         <activity android:name=".FlowPlayerActivity"/>
         <activity android:name=".StoryDefiner"/>
     </application>
