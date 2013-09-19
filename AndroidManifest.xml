@@ -15,5 +15,6 @@
         <activity android:name=".FlowPlayerActivity"/>
         <activity android:name=".StoryDefiner"/>
         <activity android:name=".FirstImageSelectorActivity"/>
+        <activity android:name=".MockPlayer" android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
     </application>
 </manifest>

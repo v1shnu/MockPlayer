@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import com.vishnu.mockplayer.models.Mock;
 
 import java.text.SimpleDateFormat;
@@ -90,6 +91,16 @@ public class DatabaseHandler {
         Cursor cursor = database.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             return cursor;
+        }
+        return null;
+    }
+
+    public Uri selectFirstScreen(int mock_id) {
+        String[] columns = new String[] {SCREEN_URI};
+        Cursor cursor = database.query(true, SCREEN_TABLE, columns, SCREEN_MOCK_ID+ " =?", new String[] {String.valueOf(mock_id)}, null, null, null, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            return Uri.parse(cursor.getString(0));
         }
         return null;
     }

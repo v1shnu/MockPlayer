@@ -2,7 +2,10 @@ package com.vishnu.mockplayer;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
@@ -25,5 +28,14 @@ public class FlowPlayerActivity extends ListActivity {
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.mock_list_item, db.selectAllMocks(), columns, to);
         setListAdapter(adapter);
         db.close();
+        ListView listView = getListView();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(FlowPlayerActivity.this, MockPlayer.class);
+                intent.putExtra("mock_id", (int) id);
+                startActivity(intent);
+            }
+        });
     }
 }
