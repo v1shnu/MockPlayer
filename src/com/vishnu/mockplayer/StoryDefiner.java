@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import com.vishnu.mockplayer.utilities.CustomImageView;
+import com.vishnu.mockplayer.utilities.DatabaseHandler;
 import com.vishnu.mockplayer.utilities.Utilities;
 
 /**
@@ -18,28 +19,29 @@ import com.vishnu.mockplayer.utilities.Utilities;
  */
 public class StoryDefiner extends Activity {
 
-    Uri sourceImage;
+    private static final int SELECT_PHOTO = 100;
+    private DatabaseHandler db;
+    private MockPlayerApplication application;
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_definer);
+        db = new DatabaseHandler(getApplicationContext());
+        application = MockPlayerApplication.getInstance();
+
         Utilities.displayToast(getApplicationContext(), "Click the portion of the image you want to assign a task to");
-        sourceImage = getIntent().getParcelableExtra("image");
-        Bitmap image = com.vishnu.mockplayer.utilities.Utilities.convertUriToImage(getApplicationContext(), sourceImage);
+        Uri sourceImage = getIntent().getParcelableExtra("image");
         CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
+        Bitmap image = com.vishnu.mockplayer.utilities.Utilities.convertUriToImage(getApplicationContext(), sourceImage);
         imageView.setImageBitmap(image);
     }
 
     public void assignTaskToSelectedPortion(View view) {
-        CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
         Utilities.displayToast(getApplicationContext(), "Selected the mock to be linked");
-        Intent intent = new Intent(this, ImageSelectorActivity.class);
-        intent.putExtra("source_id", getIntent().getIntExtra("source_id", 0));
-        intent.putExtra("x1", imageView.startX);
-        intent.putExtra("y1", imageView.startY);
-        intent.putExtra("x2", imageView.endX);
-        intent.putExtra("y2", imageView.endY);
-        startActivity(intent);
+        Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
+        imagePickerIntent.setType("image/*");
+        startActivityForResult(Intent.createChooser(imagePickerIntent, "Select Picture"), SELECT_PHOTO);
     }
 
     public void saveFlow(View view) {
@@ -48,5 +50,27 @@ public class StoryDefiner extends Activity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        switch(requestCode) {
+            case SELECT_PHOTO:
+                if(resultCode == RESULT_OK){
+                    Uri sourceImage= imageReturnedIntent.getData();
+                    CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
+
+                    //Push the selected image into screens
+                    int destination = db.createScreen(sourceImage.toString(), application.getMock_id());
+                    //Push the selected co-ordinates, source and destination into action
+                    db.createAction(getIntent().getIntExtra("source_id", 0), imageView.startX, imageView.startY, imageView.endX, imageView.endY, destination);
+
+                    Intent storyDefinerIntent = new Intent(this, StoryDefiner.class);
+                    storyDefinerIntent.putExtra("source_id", destination);
+                    storyDefinerIntent.putExtra("image",sourceImage);
+                    startActivity(storyDefinerIntent);
+                }
+        }
     }
 }

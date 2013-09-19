@@ -44,7 +44,7 @@ public class FirstImageSelectorActivity extends Activity {
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
                     Intent storyDefinerIntent = new Intent(this, StoryDefiner.class);
-                    int screen_id = db.createScreen(imageReturnedIntent.toString(), application.getMock_id());
+                    int screen_id = db.createScreen(selectedImage.toString(), application.getMock_id());
                     storyDefinerIntent.putExtra("source_id", screen_id);
                     storyDefinerIntent.putExtra("image",selectedImage);
                     startActivity(storyDefinerIntent);
