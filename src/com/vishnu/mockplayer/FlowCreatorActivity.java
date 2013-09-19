@@ -23,14 +23,14 @@ import java.io.InputStream;
  */
 public class FlowCreatorActivity extends Activity {
     private static final int SELECT_PHOTO = 100;
-    SharedPreferences preferences;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MockPlayerApplication app = MockPlayerApplication.getInstance();
         String activityName = getIntent().getExtras().getString("activityName");
-        preferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        preferences.edit().putString(getString(R.string.flow_name), activityName).commit();
+        app.setMock_name(activityName);
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-        db.createMock(activityName);
+        int mock_id = (int) db.createMock(activityName);
+        app.setMock_id(mock_id);
         setTitle(activityName);
         setContentView(R.layout.activity_flow_creator_start);
     }

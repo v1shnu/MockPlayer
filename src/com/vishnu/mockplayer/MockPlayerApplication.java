@@ -12,6 +12,9 @@ import android.app.Application;
 public class MockPlayerApplication extends Application {
     private static MockPlayerApplication instance = null;
 
+    private int mock_id;
+    private String mock_name;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -26,4 +29,19 @@ public class MockPlayerApplication extends Application {
         MockPlayerApplication.instance = instance;
     }
 
+    public int getMock_id() {
+        return mock_id;
+    }
+
+    public void setMock_id(int mock_id) {
+        this.mock_id = mock_id;
+    }
+
+    public String getMock_name() {
+        return mock_name;
+    }
+
+    public void setMock_name(String mock_name) {
+        this.mock_name = mock_name;
+    }
 }
