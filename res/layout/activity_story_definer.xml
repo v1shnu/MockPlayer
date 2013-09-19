@@ -23,6 +23,6 @@
                 android:text="@string/done"
                 android:id="@+id/done_button"
                 android:layout_weight="1"
-                android:onClick="done"/>
+                android:onClick="saveFlow"/>
     </LinearLayout>
 </RelativeLayout>

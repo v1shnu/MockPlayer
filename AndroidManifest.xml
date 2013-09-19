@@ -12,8 +12,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ImageSelectorActivity"/>
+        <activity android:name=".ImageSelectorActivity" android:theme="@android:style/Theme.NoDisplay"/>
         <activity android:name=".FlowPlayerActivity"/>
         <activity android:name=".StoryDefiner"/>
+        <activity android:name=".FirstImageSelectorActivity"/>
     </application>
 </manifest>

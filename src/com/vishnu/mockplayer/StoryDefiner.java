@@ -34,12 +34,19 @@ public class StoryDefiner extends Activity {
         CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
         Utilities.displayToast(getApplicationContext(), "Selected the mock to be linked");
         Intent intent = new Intent(this, ImageSelectorActivity.class);
-        intent.putExtra("action", true);
-        intent.putExtra("source", sourceImage);
+        intent.putExtra("source_id", getIntent().getIntExtra("source_id", 0));
         intent.putExtra("x1", imageView.startX);
         intent.putExtra("y1", imageView.startY);
         intent.putExtra("x2", imageView.endX);
         intent.putExtra("y2", imageView.endY);
+        startActivity(intent);
+    }
+
+    public void saveFlow(View view) {
+        Utilities.displayToast(getApplicationContext(), "Flow saved :)");
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }
