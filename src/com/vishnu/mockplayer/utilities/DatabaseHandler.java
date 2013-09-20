@@ -35,7 +35,7 @@ public class DatabaseHandler {
 
     public DatabaseHandler(Context context) {
         dbHelper = new DatabaseHelper(context);
-        database = dbHelper.getWritableDatabase();
+        database = dbHelper.getReadableDatabase();
     }
 
     public int createMock(String name) {
@@ -47,6 +47,7 @@ public class DatabaseHandler {
     }
 
     public int createScreen(String uri, int mock_id) {
+        Utilities.log("Inserting URI : "+uri);
         ContentValues values = new ContentValues();
         values.put(SCREEN_URI, uri);
         values.put(SCREEN_MOCK_ID, mock_id);
