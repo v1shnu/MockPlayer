@@ -1,6 +1,5 @@
 package com.vishnu.mockplayer;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
-import com.vishnu.mockplayer.utilities.Utilities;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,7 +16,7 @@ import com.vishnu.mockplayer.utilities.Utilities;
  * Time: 2:19 PM
  * To change this template use File | Settings | File Templates.
  */
-public class FlowPlayerActivity extends ListActivity {
+public class ListOfFlows extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flow_player);
@@ -32,7 +30,7 @@ public class FlowPlayerActivity extends ListActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(FlowPlayerActivity.this, MockPlayer.class);
+                Intent intent = new Intent(ListOfFlows.this, MockPlayer.class);
                 intent.putExtra("mock_id", (int) id);
                 startActivity(intent);
             }

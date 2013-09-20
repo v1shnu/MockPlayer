@@ -41,7 +41,7 @@ public class FlowNamingDialog extends DialogFragment{
                 String activityName = flowName.getText().toString();
                 MockPlayerApplication application = MockPlayerApplication.getInstance();
                 application.setMock_name(activityName);
-                Intent intent = new Intent(activity, FirstImageSelectorActivity.class);
+                Intent intent = new Intent(activity, FirstImageSelector.class);
                 startActivity(intent);
             }
         }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

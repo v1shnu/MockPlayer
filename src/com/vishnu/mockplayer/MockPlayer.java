@@ -47,10 +47,7 @@ public class MockPlayer extends Activity {
             }
             private int detectHit(float x, float y, ArrayList<HotSpots> hotspots) {
                 for(HotSpots hotspot : hotspots) {
-                    Utilities.log(hotspot.getX1()+":"+hotspot.getY1()+"   |   "+hotspot.getX2()+":"+hotspot.getY2());
-                    Utilities.log("Touched -> "+x+":"+y);
                     if(x < Math.max(hotspot.getX1(), hotspot.getX2()) && x > Math.min(hotspot.getX1(), hotspot.getX2()) && y < Math.max(hotspot.getY1(), hotspot.getY2()) && y > Math.min(hotspot.getY1(), hotspot.getY2())) {
-                        Utilities.log("Fell inside");
                         return hotspot.getDestination();
                     }
                 }

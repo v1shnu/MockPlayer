@@ -12,9 +12,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".FlowPlayerActivity"/>
+        <activity android:name=".ListOfFlows"/>
         <activity android:name=".StoryDefiner"/>
-        <activity android:name=".FirstImageSelectorActivity"/>
+        <activity android:name=".FirstImageSelector"/>
         <activity android:name=".MockPlayer" android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
     </application>
 </manifest>

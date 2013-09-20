@@ -14,7 +14,7 @@ import com.vishnu.mockplayer.utilities.DatabaseHandler;
  * Time: 6:04 PM
  * To change this template use File | Settings | File Templates.
  */
-public class FirstImageSelectorActivity extends Activity {
+public class FirstImageSelector extends Activity {
     private static final int SELECT_PHOTO = 100;
     private DatabaseHandler db;
     private MockPlayerApplication application;
