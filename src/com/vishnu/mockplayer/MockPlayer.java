@@ -1,6 +1,7 @@
 package com.vishnu.mockplayer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
@@ -43,6 +44,10 @@ public class MockPlayer extends Activity {
         imageView.setOnTouchListener(new ImageView.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                if(hotSpots == null) {
+                    exitPlayer();
+                    return false;
+                }
                 float[] transformedCoordinates = transformCoordinates(event.getX(), event.getY());
                 int destination = detectHit(transformedCoordinates[0], transformedCoordinates[1], hotSpots);
                 if(destination != -1) showScreen(destination, true);
@@ -73,6 +78,9 @@ public class MockPlayer extends Activity {
         setHotSpots(screen.getScreen_id());
         if(push)
             backStack.push(screen);
+        if(hotSpots == null) {
+            Utilities.displayToast(getApplicationContext(), "End of flow. Tap to exit.");
+        }
     }
 
     private void setHotSpots(int screen_id) {
@@ -82,6 +90,12 @@ public class MockPlayer extends Activity {
     private void displayImage(Uri screenImage) {
         Bitmap image = com.vishnu.mockplayer.utilities.Utilities.convertUriToImage(getApplicationContext(), screenImage);
         imageView.setImageBitmap(image);
+    }
+
+    private void exitPlayer() {
+        Intent intent = new Intent(this, ListOfFlows.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     @Override

@@ -96,8 +96,9 @@ public class DatabaseHandler {
             do {
                 hotspots.add(new HotSpots(Float.parseFloat(cursor.getString(0)), Float.parseFloat(cursor.getString(1)), Float.parseFloat(cursor.getString(2)), Float.parseFloat(cursor.getString(3)), Integer.parseInt(cursor.getString(4))));
             } while(cursor.moveToNext());
+            return hotspots;
         }
-        return hotspots;
+        return null;
     }
 
     public Cursor selectAllMocks() {
