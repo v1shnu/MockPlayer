@@ -111,7 +111,7 @@ public class DatabaseHandler {
 
     public Screen selectFirstScreen(int mock_id) {
         String[] columns = new String[] {SCREEN_ID, SCREEN_URI};
-        Cursor cursor = database.query(true, SCREEN_TABLE, columns, SCREEN_MOCK_ID+ " =?", new String[] {String.valueOf(mock_id)}, null, null, null, null);
+        Cursor cursor = database.query(true, SCREEN_TABLE, columns, SCREEN_MOCK_ID+ " =? ", new String[] {String.valueOf(mock_id)}, null, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             cursor.moveToFirst();
             return new Screen(Integer.parseInt(cursor.getString(0)), Uri.parse(cursor.getString(1)));
@@ -133,5 +133,15 @@ public class DatabaseHandler {
 
     public void close() {
         database.close();
+    }
+
+    public Screen selectScreenById(int screen_id) {
+        String[] columns = new String[] {SCREEN_ID, SCREEN_URI};
+        Cursor cursor = database.query(true, SCREEN_TABLE, columns, SCREEN_ID+ " =? ", new String[] {String.valueOf(screen_id)}, null, null, null, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            return new Screen(Integer.parseInt(cursor.getString(0)), Uri.parse(cursor.getString(1)));
+        }
+        return null;
     }
 }
