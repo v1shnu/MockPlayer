@@ -3,6 +3,7 @@ package com.vishnu.mockplayer.utilities;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -34,6 +35,8 @@ public class CustomImageView extends ImageView {
     public static boolean PORTION_SELECTED = false;
 
     public float startX, startY, endX, endY, startDragX, dragX, startDragY, dragY;
+
+    public float x1, y1, x2, y2;
 
     public CustomImageView(Context context, int startX) {
         super(context);
@@ -67,11 +70,29 @@ public class CustomImageView extends ImageView {
         super(context, attrs, defStyle);
     }
 
+    public float[] transformCoordinates(float x, float y) {
+        float [] coordinates = new float [] {x, y};
+        Matrix matrix = new Matrix();
+        this.getImageMatrix().invert(matrix);
+        matrix.postTranslate(this.getScrollX(), this.getScrollY());
+        matrix.mapPoints(coordinates);
+        return coordinates;
+    }
+
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         try{
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+
+                    float [] coordinates = new float[]{event.getX(), event.getY()};
+                    Matrix matrix = new Matrix();
+                    this.getImageMatrix().invert(matrix);
+                    matrix.postTranslate(this.getScrollX(), this.getScrollY());
+                    matrix.mapPoints(coordinates);
+                    Utilities.log("Touched : "+event.getX() + "-"+event.getY());
+                    Utilities.log("Coordinates : "+ coordinates[0] + "-"+coordinates[1]);
+
                     PORTION_SELECTED = false;
                     if(touchedCorner(event.getX(), event.getY())) {
                         Utilities.log("Touched the corner : "+EXPAND_CORNER);
@@ -173,9 +194,9 @@ public class CustomImageView extends ImageView {
                 case MotionEvent.ACTION_UP:
                     PORTION_SELECTED = true;
                     if(MODE == DRAG)
-                        Utilities.log("Moved to : "+"("+startX+", "+startY+") - ("+endX+", "+endY+")");
+                        Utilities.log("Moved to : "+"("+x1+", "+y1+") - ("+x2+", "+y2+")");
                     else
-                        Utilities.log("Selected Area : "+"("+startX+", "+startY+") - ("+endX+", "+endY+")");
+                        Utilities.log("Selected Area : "+"("+x1+", "+y1+") - ("+x2+", "+y2+")");
                     break;
             }
         }
@@ -272,9 +293,20 @@ public class CustomImageView extends ImageView {
         canvas.drawCircle(Math.min(startX, endX), Math.max(startY, endY), CIRCLE_RADIUS, paint);
     }
 
+    private void calculateCoordinates() {
+        float [] startingPoints = transformCoordinates(startX, startY);
+        x1 = startingPoints[0];
+        y1 = startingPoints[1];
+        float [] endingPoints = transformCoordinates(endX, endY);
+        x2 = endingPoints[0];
+        y2 = endingPoints[1];
+    }
+
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(PORTION_SELECTED)
+        if(PORTION_SELECTED) {
             constructRectangle(canvas);
+            calculateCoordinates();
+        }
     }
 }

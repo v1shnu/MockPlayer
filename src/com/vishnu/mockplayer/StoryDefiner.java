@@ -64,7 +64,7 @@ public class StoryDefiner extends Activity {
                     //Push the selected image into screens
                     int destination = db.createScreen(sourceImage.toString(), application.getMock_id());
                     //Push the selected co-ordinates, source and destination into action
-                    db.createAction(getIntent().getIntExtra("source_id", 0), imageView.startX, imageView.startY, imageView.endX, imageView.endY, destination);
+                    db.createAction(getIntent().getIntExtra("source_id", 0), imageView.x1, imageView.y1, imageView.x2, imageView.y2, destination);
 
                     Intent storyDefinerIntent = new Intent(this, StoryDefiner.class);
                     storyDefinerIntent.putExtra("source_id", destination);
