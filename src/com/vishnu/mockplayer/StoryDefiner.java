@@ -37,10 +37,26 @@ public class StoryDefiner extends Activity {
         imageView.setImageBitmap(image);
     }
 
+    public void assignTaskToMenuButton(View view) {
+        Utilities.displayToast(getApplicationContext(), "Selected the mock to be linked");
+        Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
+        imagePickerIntent.setType("image/*");
+        imagePickerIntent.putExtra("menuButton",true);
+        startActivityForResult(Intent.createChooser(imagePickerIntent, "Select Picture"), SELECT_PHOTO);
+    }
+
     public void assignTaskToSelectedPortion(View view) {
         Utilities.displayToast(getApplicationContext(), "Selected the mock to be linked");
         Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
         imagePickerIntent.setType("image/*");
+        startActivityForResult(Intent.createChooser(imagePickerIntent, "Select Picture"), SELECT_PHOTO);
+    }
+
+    public void assignTaskToBackButton(View view) {
+        Utilities.displayToast(getApplicationContext(), "Selected the mock to be linked");
+        Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
+        imagePickerIntent.setType("image/*");
+        imagePickerIntent.putExtra("backButton",true);
         startActivityForResult(Intent.createChooser(imagePickerIntent, "Select Picture"), SELECT_PHOTO);
     }
 

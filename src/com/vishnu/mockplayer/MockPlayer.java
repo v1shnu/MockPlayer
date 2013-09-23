@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -110,4 +111,18 @@ public class MockPlayer extends Activity {
         Screen screen = backStack.peek();
         showScreen(screen.getScreen_id(), false);
     }
+
+    public void onMenuButtonPressed() {
+        Utilities.log("Menu button pressed!");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_MENU) {
+            onMenuButtonPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }

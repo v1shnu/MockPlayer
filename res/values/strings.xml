@@ -13,4 +13,6 @@
     <string name="done">Done</string>
     <string name="search_title">Search</string>
     <string name="search_hint">Search mocks</string>
+    <string name="assign_back_button">Back</string>
+    <string name="assign_menu_button">Menu</string>
 </resources>
