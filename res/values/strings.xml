@@ -11,4 +11,6 @@
     <string name="flow_name">com.vishnu.mockplayer.flowname</string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search mocks</string>
 </resources>

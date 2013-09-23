@@ -145,4 +145,15 @@ public class DatabaseHandler {
         }
         return null;
     }
+
+    public Cursor queryForMocks(String query) {
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        String selectQuery = "SELECT * FROM "+MOCK_TABLE+" WHERE name LIKE \""+query+"%\"";
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            database.close();
+            return cursor;
+        }
+        return null;
+    }
 }
