@@ -92,11 +92,11 @@ public class DatabaseHandler {
 
     public ArrayList<HotSpots> getHotSpots(int screen_id) {
         ArrayList<HotSpots> hotspots = new ArrayList<HotSpots>();
-        String[] columns = new String[] {"x1", "y1", "x2", "y2", DESTINATION_ID};
+        String[] columns = new String[] {"x1", "y1", "x2", "y2", "menuButton", "backButton", DESTINATION_ID};
         Cursor cursor = database.query(true, ACTIONS_TABLE, columns, SOURCE_ID + " =? ", new String[]{String.valueOf(screen_id)}, null, null, null, null);
         if(cursor.moveToFirst()) {
             do {
-                hotspots.add(new HotSpots(Float.parseFloat(cursor.getString(0)), Float.parseFloat(cursor.getString(1)), Float.parseFloat(cursor.getString(2)), Float.parseFloat(cursor.getString(3)), Integer.parseInt(cursor.getString(4))));
+                hotspots.add(new HotSpots(Float.parseFloat(cursor.getString(0)), Float.parseFloat(cursor.getString(1)), Float.parseFloat(cursor.getString(2)), Float.parseFloat(cursor.getString(3)), Boolean.parseBoolean(cursor.getString(4)), Boolean.parseBoolean(cursor.getString(5)), Integer.parseInt(cursor.getString(6))));
             } while(cursor.moveToNext());
             return hotspots;
         }

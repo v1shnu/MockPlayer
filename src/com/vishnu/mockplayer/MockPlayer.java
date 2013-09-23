@@ -101,8 +101,18 @@ public class MockPlayer extends Activity {
 
     @Override
     public void onBackPressed() {
-        Utilities.log("Back button pressed");
-        Utilities.log("Size of stack : "+ backStack.size());
+        try {
+            for(HotSpots hotspot : hotSpots) {
+                if(hotspot.isBackButton() == true) {
+                    emptyBackStack();
+                    showScreen(hotspot.getDestination(), true);
+                    return;
+                }
+            }
+        }
+        catch(Exception e) {
+        }
+
         if(backStack.size() == 1) {
             super.onBackPressed();
             return;
@@ -112,12 +122,28 @@ public class MockPlayer extends Activity {
         showScreen(screen.getScreen_id(), false);
     }
 
+    private void emptyBackStack() {
+        while(!backStack.empty())
+            backStack.pop();
+    }
+
     public void onMenuButtonPressed() {
-        Utilities.log("Menu button pressed!");
+        try {
+            for(HotSpots hotspot : hotSpots) {
+                if(hotspot.isMenuButton() == true) {
+                    showScreen(hotspot.getDestination(), true);
+                    return;
+                }
+            }
+        }
+        catch(Exception e) {
+        }
+
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Utilities.log("Backstack Size : "+backStack.size());
         if(keyCode == KeyEvent.KEYCODE_MENU) {
             onMenuButtonPressed();
             return true;

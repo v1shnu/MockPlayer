@@ -9,13 +9,17 @@ package com.vishnu.mockplayer.models;
  */
 public class HotSpots {
     private float x1, y1, x2, y2;
+    private boolean menuButton, backButton;
+
     private int destination;
 
-    public HotSpots(float x1, float y1, float x2, float y2, int destination) {
+    public HotSpots(float x1, float y1, float x2, float y2, boolean menuButton, boolean backButton, int destination) {
+        this.menuButton = menuButton;
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+        this.backButton = backButton;
         this.destination = destination;
     }
 
@@ -57,5 +61,21 @@ public class HotSpots {
 
     public void setDestination(int destination) {
         this.destination = destination;
+    }
+
+    public boolean isMenuButton() {
+        return menuButton;
+    }
+
+    public void setMenuButton(boolean menuButton) {
+        this.menuButton = menuButton;
+    }
+
+    public boolean isBackButton() {
+        return backButton;
+    }
+
+    public void setBackButton(boolean backButton) {
+        this.backButton = backButton;
     }
 }
