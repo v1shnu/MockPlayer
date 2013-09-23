@@ -22,13 +22,16 @@ public class StoryDefiner extends Activity {
     private static final int SELECT_PHOTO = 100;
     private DatabaseHandler db;
     private MockPlayerApplication application;
-
+    private static boolean menuButton = false;
+    private static boolean backButton = false;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_definer);
         db = new DatabaseHandler(getApplicationContext());
         application = MockPlayerApplication.getInstance();
+        menuButton = false;
+        backButton = false;
 
         Utilities.displayToast(getApplicationContext(), "Click the portion of the image you want to assign a task to");
         Uri sourceImage = getIntent().getParcelableExtra("image");
@@ -41,7 +44,7 @@ public class StoryDefiner extends Activity {
         Utilities.displayToast(getApplicationContext(), "Selected the mock to be linked");
         Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
         imagePickerIntent.setType("image/*");
-        imagePickerIntent.putExtra("menuButton",true);
+        menuButton = true;
         startActivityForResult(Intent.createChooser(imagePickerIntent, "Select Picture"), SELECT_PHOTO);
     }
 
@@ -56,7 +59,7 @@ public class StoryDefiner extends Activity {
         Utilities.displayToast(getApplicationContext(), "Selected the mock to be linked");
         Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
         imagePickerIntent.setType("image/*");
-        imagePickerIntent.putExtra("backButton",true);
+        backButton = true;
         startActivityForResult(Intent.createChooser(imagePickerIntent, "Select Picture"), SELECT_PHOTO);
     }
 
@@ -76,11 +79,10 @@ public class StoryDefiner extends Activity {
                 if(resultCode == RESULT_OK){
                     Uri sourceImage= imageReturnedIntent.getData();
                     CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
-
                     //Push the selected image into screens
                     int destination = db.createScreen(sourceImage.toString(), application.getMock_id());
                     //Push the selected co-ordinates, source and destination into action
-                    db.createAction(getIntent().getIntExtra("source_id", 0), imageView.x1, imageView.y1, imageView.x2, imageView.y2, destination);
+                    db.createAction(getIntent().getIntExtra("source_id", 0), imageView.x1, imageView.y1, imageView.x2, imageView.y2, String.valueOf(menuButton), String.valueOf(backButton), destination);
 
                     Intent storyDefinerIntent = new Intent(this, StoryDefiner.class);
                     storyDefinerIntent.putExtra("source_id", destination);

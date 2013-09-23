@@ -19,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 2;
     private static final String CREATE_MOCKS_TABLE = "create table if not exists mocks ( _id integer primary key autoincrement not null, name text not null, timestamp text not null);";
     private static final String CREATE_SCREENS_TABLE = "create table if not exists screens ( _id integer primary key autoincrement not null, uri text not null, mock_id integer not null);";
-    private static final String CREATE_ACTIONS_TABLE = "create table if not exists actions ( _id integer primary key autoincrement not null, source_id integer not null, x1 real not null, y1 real not null, x2 real not null, y2 real not null, destination_id integer not null);";
+    private static final String CREATE_ACTIONS_TABLE = "create table if not exists actions ( _id integer primary key autoincrement not null, source_id integer not null, x1 real not null, y1 real not null, x2 real not null, y2 real not null, menuButton text not null, backButton text not null, destination_id integer not null);";
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

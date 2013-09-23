@@ -56,13 +56,15 @@ public class DatabaseHandler {
         return screen_id;
     }
 
-    public int createAction(int source_id, float x1, float y1, float x2, float y2, int destination_id) {
+    public int createAction(int source_id, float x1, float y1, float x2, float y2, String menuButton, String backButton, int destination_id) {
         ContentValues values = new ContentValues();
         values.put(SOURCE_ID, source_id);
         values.put("x1", x1);
         values.put("y1", y1);
         values.put("x2", x2);
         values.put("y2", y2);
+        values.put("menuButton", menuButton);
+        values.put("backButton", backButton);
         values.put(DESTINATION_ID, destination_id);
         int action_id = (int) database.insert(ACTIONS_TABLE, null, values);
         return action_id;
