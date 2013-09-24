@@ -5,9 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.View;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -35,12 +33,18 @@ public class ListOfFlows extends ListActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ListOfFlows.this, MockPlayer.class);
-                intent.putExtra("mock_id", (int) id);
-                startActivity(intent);
+                playMock(id);
             }
         });
+        registerForContextMenu(listView);
     }
+
+    private void playMock(long id) {
+        Intent intent = new Intent(ListOfFlows.this, MockPlayer.class);
+        intent.putExtra("mock_id", (int) id);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -72,5 +76,35 @@ public class ListOfFlows extends ListActivity {
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.mock_list_item, db.queryForMocks(query), columns, to);
         setListAdapter(adapter);
         db.close();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, view, menuInfo);
+        if(view.getId() == getListView().getId()) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.context_menu, menu);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()) {
+            case R.id.play_flow:
+                playMock(info.id);
+                return true;
+            case R.id.delete_flow:
+                deleteFlow(info.id);
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void deleteFlow(long id) {
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        db.deleteMock((int)id);
+        Utilities.displayToast(getApplicationContext(), "Flow has been deleted");
+        populateList("");
     }
 }

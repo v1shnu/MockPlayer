@@ -158,4 +158,13 @@ public class DatabaseHandler {
         }
         return null;
     }
+
+    public void deleteMock(int id) {
+        String deleteQuery = "DELETE FROM "+MOCK_TABLE+" WHERE "+MOCK_ID+"="+id;
+        Utilities.log(deleteQuery);
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        boolean result = database.delete(MOCK_TABLE, MOCK_ID+"="+id, null)>0;
+        Utilities.log(String.valueOf(result));
+        database.close();
+    }
 }

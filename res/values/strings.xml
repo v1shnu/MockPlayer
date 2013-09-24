@@ -16,4 +16,5 @@
     <string name="assign_back_button">Back</string>
     <string name="assign_menu_button">Menu</string>
     <string name="assign_action_text">Assign action to :</string>
+    <string name="delete_flow">Delete</string>
 </resources>
