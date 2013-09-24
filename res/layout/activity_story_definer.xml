@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
     <com.vishnu.mockplayer.utilities.CustomImageView
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="75dp"
             android:id="@+id/imageView"/>
     <Button android:layout_alignParentBottom="true"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:text="@string/done"
             android:id="@+id/done_button"
             android:layout_weight="1"
             android:onClick="saveFlow"/>
-    <LinearLayout android:layout_height="50dp" android:layout_width="fill_parent" android:layout_above="@id/done_button" android:paddingBottom="0dp">
+    <LinearLayout android:layout_height="30dp" android:layout_width="fill_parent" android:layout_above="@id/done_button" android:paddingBottom="0dp">
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:text="@string/assign_action_text"
+                  />
         <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -24,13 +30,21 @@
                 android:background="@drawable/back_button"
                 android:layout_weight="1"
                 android:onClick="assignTaskToBackButton"/>
+        <Space
+                android:layout_width="20px"
+                android:layout_height="fill_parent"
+                android:id="@+id/space"/>
         <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/assign_task_button"
+                android:background="@drawable/selection"
                 android:id="@+id/assign_task_button"
-                android:layout_weight="7"
+                android:layout_weight="1"
                 android:onClick="assignTaskToSelectedPortion"/>
+        <Space
+                android:layout_width="20px"
+                android:layout_height="fill_parent"
+                android:id="@+id/space1"/>
         <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
