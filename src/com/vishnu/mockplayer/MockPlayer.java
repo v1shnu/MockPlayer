@@ -15,6 +15,7 @@ import com.vishnu.mockplayer.models.Screen;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
 import com.vishnu.mockplayer.utilities.Utilities;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -39,8 +40,6 @@ public class MockPlayer extends Activity {
         db = new DatabaseHandler(getApplicationContext());
         imageView = (ImageView) findViewById(R.id.imageView);
         backStack = new Stack<Screen>();
-
-        showScreen(db.selectFirstScreen(getIntent().getIntExtra("mock_id", 0)).getScreen_id(), true);
 
         imageView.setOnTouchListener(new ImageView.OnTouchListener() {
             @Override
@@ -73,6 +72,12 @@ public class MockPlayer extends Activity {
         });
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        showScreen(db.selectFirstScreen(getIntent().getIntExtra("mock_id", 0)).getScreen_id(), true);
+    }
+
     private void showScreen(int screen_id, boolean push) {
         Screen screen = db.selectScreenById(screen_id);
         displayImage(screen.getImage());
@@ -89,8 +94,10 @@ public class MockPlayer extends Activity {
     }
 
     private void displayImage(Uri screenImage) {
-        Bitmap image = com.vishnu.mockplayer.utilities.Utilities.convertUriToImage(getApplicationContext(), screenImage);
+        InputStream stream = Utilities.convertUriToStream(getApplicationContext(), screenImage);
+        Bitmap image = Utilities.decodeSampledBitmapFromResource(stream, imageView.getWidth(), imageView.getHeight());
         imageView.setImageBitmap(image);
+        Utilities.log("Displaying : "+imageView.getHeight());
     }
 
     private void exitPlayer() {

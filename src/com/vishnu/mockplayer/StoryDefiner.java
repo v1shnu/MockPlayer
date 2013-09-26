@@ -6,9 +6,12 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import com.vishnu.mockplayer.utilities.CustomImageView;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
 import com.vishnu.mockplayer.utilities.Utilities;
+
+import java.io.InputStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,34 +35,41 @@ public class StoryDefiner extends Activity {
         application = MockPlayerApplication.getInstance();
         menuButton = false;
         backButton = false;
+    }
 
-        Utilities.displayToast(getApplicationContext(), "Click the portion of the image you want to assign a task to");
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        setImage();
+    }
+
+    public void setImage() {
         Uri sourceImage = getIntent().getParcelableExtra("image");
         CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
-        Bitmap image = com.vishnu.mockplayer.utilities.Utilities.convertUriToImage(getApplicationContext(), sourceImage);
+        InputStream stream = Utilities.convertUriToStream(getApplicationContext(), sourceImage);
+        Bitmap image = Utilities.decodeSampledBitmapFromResource(stream, imageView.getWidth(), imageView.getHeight());
         imageView.setImageBitmap(image);
+        Utilities.displayToast(getApplicationContext(), "Click the portion of the image you want to assign a task to");
     }
 
     public void assignTaskToMenuButton(View view) {
-        Utilities.displayToast(getApplicationContext(), "Selected the mock to be linked");
-        Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
-        imagePickerIntent.setType("image/*");
         menuButton = true;
-        startActivityForResult(Intent.createChooser(imagePickerIntent, "Select Picture"), SELECT_PHOTO);
-    }
-
-    public void assignTaskToSelectedPortion(View view) {
-        Utilities.displayToast(getApplicationContext(), "Selected the mock to be linked");
-        Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
-        imagePickerIntent.setType("image/*");
-        startActivityForResult(Intent.createChooser(imagePickerIntent, "Select Picture"), SELECT_PHOTO);
+        pickImage();
     }
 
     public void assignTaskToBackButton(View view) {
+        backButton = true;
+        pickImage();
+    }
+
+    public void assignTaskToSelectedPortion(View view) {
+        pickImage();
+    }
+
+    public void pickImage() {
         Utilities.displayToast(getApplicationContext(), "Selected the mock to be linked");
         Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
         imagePickerIntent.setType("image/*");
-        backButton = true;
         startActivityForResult(Intent.createChooser(imagePickerIntent, "Select Picture"), SELECT_PHOTO);
     }
 
