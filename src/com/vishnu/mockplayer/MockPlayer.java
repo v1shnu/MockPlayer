@@ -28,7 +28,6 @@ import java.util.Stack;
  */
 public class MockPlayer extends Activity {
 
-    DatabaseHandler db;
     ImageView imageView;
     ArrayList<HotSpots> hotSpots;
     Stack<Screen> backStack;
@@ -37,7 +36,6 @@ public class MockPlayer extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mock_player);
 
-        db = new DatabaseHandler(getApplicationContext());
         imageView = (ImageView) findViewById(R.id.imageView);
         backStack = new Stack<Screen>();
 
@@ -75,13 +73,15 @@ public class MockPlayer extends Activity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        showScreen(db.selectFirstScreen(getIntent().getIntExtra("mock_id", 0)).getScreen_id(), true);
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        showScreen(db.selectFirstScreen(getIntent().getIntExtra("mockId", 0)).getScreenId(), true);
     }
 
     private void showScreen(int screen_id, boolean push) {
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         Screen screen = db.selectScreenById(screen_id);
         displayImage(screen.getImage());
-        setHotSpots(screen.getScreen_id());
+        setHotSpots(screen.getScreenId());
         if(push)
             backStack.push(screen);
         if(hotSpots == null) {
@@ -90,6 +90,7 @@ public class MockPlayer extends Activity {
     }
 
     private void setHotSpots(int screen_id) {
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         hotSpots = db.getHotSpots(screen_id);
     }
 
@@ -126,7 +127,7 @@ public class MockPlayer extends Activity {
         }
         backStack.pop();
         Screen screen = backStack.peek();
-        showScreen(screen.getScreen_id(), false);
+        showScreen(screen.getScreenId(), false);
     }
 
     private void emptyBackStack() {

@@ -16,16 +16,15 @@ import com.vishnu.mockplayer.utilities.DatabaseHandler;
  */
 public class FirstImageSelector extends Activity {
     private static final int SELECT_PHOTO = 100;
-    private DatabaseHandler db;
     private MockPlayerApplication application;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = new DatabaseHandler(getApplicationContext());
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         application = MockPlayerApplication.getInstance();
-        String activityName = application.getMock_name();
+        String activityName = application.getMockName();
         int mock_id = db.createMock(activityName);
-        application.setMock_id(mock_id);
+        application.setMockId(mock_id);
         setTitle(activityName);
         setContentView(R.layout.first_image_picker);
     }
@@ -44,8 +43,9 @@ public class FirstImageSelector extends Activity {
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
                     Intent storyDefinerIntent = new Intent(this, StoryDefiner.class);
-                    int screen_id = db.createScreen(selectedImage.toString(), application.getMock_id());
-                    storyDefinerIntent.putExtra("source_id", screen_id);
+                    DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                    int screenId = db.createScreen(selectedImage.toString(), application.getMockId());
+                    storyDefinerIntent.putExtra("source", screenId);
                     storyDefinerIntent.putExtra("image",selectedImage);
                     startActivity(storyDefinerIntent);
                 }

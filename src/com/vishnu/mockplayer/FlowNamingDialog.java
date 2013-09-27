@@ -40,7 +40,7 @@ public class FlowNamingDialog extends DialogFragment{
                 EditText flowName = (EditText) dialogLayout.findViewById(R.id.activity_name);
                 String activityName = flowName.getText().toString();
                 MockPlayerApplication application = MockPlayerApplication.getInstance();
-                application.setMock_name(activityName);
+                application.setMockName(activityName);
                 Intent intent = new Intent(activity, FirstImageSelector.class);
                 startActivity(intent);
             }

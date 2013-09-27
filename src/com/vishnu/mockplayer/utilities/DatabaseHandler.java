@@ -40,23 +40,28 @@ public class DatabaseHandler {
     }
 
     public int createMock(String name) {
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(MOCK_NAME, name);
         values.put(MOCK_TIMESTAMP, java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime()));
-        int mock_id = (int) database.insert(MOCK_TABLE, null, values);
-        return mock_id;
+        int mockId = (int) database.insert(MOCK_TABLE, null, values);
+        database.close();
+        return mockId;
     }
 
     public int createScreen(String uri, int mock_id) {
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         Utilities.log("Inserting URI : "+uri);
         ContentValues values = new ContentValues();
         values.put(SCREEN_URI, uri);
         values.put(SCREEN_MOCK_ID, mock_id);
-        int screen_id = (int) database.insert(SCREEN_TABLE, null, values);
-        return screen_id;
+        int screenId = (int) database.insert(SCREEN_TABLE, null, values);
+        database.close();
+        return screenId;
     }
 
     public int createAction(int source_id, float x1, float y1, float x2, float y2, String menuButton, String backButton, int destination_id) {
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SOURCE_ID, source_id);
         values.put("x1", x1);
@@ -67,30 +72,12 @@ public class DatabaseHandler {
         values.put("backButton", backButton);
         values.put(DESTINATION_ID, destination_id);
         int action_id = (int) database.insert(ACTIONS_TABLE, null, values);
+        database.close();
         return action_id;
     }
 
-    public Mock selectMockById(int id) {
-        String[] columns = new String[] {MOCK_ID, MOCK_NAME, MOCK_TIMESTAMP};
-        Cursor cursor = database.query(true, MOCK_TABLE, columns, MOCK_ID + "=?", new String[] {String.valueOf(id)}, null, null, null, null);
-        if(cursor != null) {
-            cursor.moveToFirst();
-            return new Mock(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
-        }
-        return null;
-    }
-
-    public Mock selectMockByName(String name) {
-        String[] columns = new String[] {MOCK_ID, MOCK_NAME, MOCK_TIMESTAMP};
-        Cursor cursor = database.query(true, MOCK_TABLE, columns, MOCK_NAME + "=?", new String[] {name}, null, null, null, null);
-        if(cursor != null) {
-            cursor.moveToFirst();
-            return new Mock(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
-        }
-        return null;
-    }
-
     public ArrayList<HotSpots> getHotSpots(int screen_id) {
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         ArrayList<HotSpots> hotspots = new ArrayList<HotSpots>();
         String[] columns = new String[] {"x1", "y1", "x2", "y2", "menuButton", "backButton", DESTINATION_ID};
         Cursor cursor = database.query(true, ACTIONS_TABLE, columns, SOURCE_ID + " =? ", new String[]{String.valueOf(screen_id)}, null, null, null, null);
@@ -98,40 +85,23 @@ public class DatabaseHandler {
             do {
                 hotspots.add(new HotSpots(Float.parseFloat(cursor.getString(0)), Float.parseFloat(cursor.getString(1)), Float.parseFloat(cursor.getString(2)), Float.parseFloat(cursor.getString(3)), Boolean.parseBoolean(cursor.getString(4)), Boolean.parseBoolean(cursor.getString(5)), Integer.parseInt(cursor.getString(6))));
             } while(cursor.moveToNext());
+            database.close();
             return hotspots;
         }
-        return null;
-    }
-
-    public Cursor selectAllMocks() {
-        String selectQuery = "SELECT * FROM "+MOCK_TABLE;
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst()) {
-            return cursor;
-        }
+        database.close();
         return null;
     }
 
     public Screen selectFirstScreen(int mock_id) {
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         String[] columns = new String[] {SCREEN_ID, SCREEN_URI};
         Cursor cursor = database.query(true, SCREEN_TABLE, columns, SCREEN_MOCK_ID+ " =? ", new String[] {String.valueOf(mock_id)}, null, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             cursor.moveToFirst();
+            database.close();
             return new Screen(Integer.parseInt(cursor.getString(0)), Uri.parse(cursor.getString(1)));
         }
         return null;
-    }
-
-    public ArrayList<Mock> selectAllMocksAsList() {
-        ArrayList <Mock> mockList = new ArrayList<Mock>();
-        String selectQuery = "SELECT * FROM "+MOCK_TABLE;
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst()) {
-            do {
-                mockList.add(new Mock(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2)));
-            } while(cursor.moveToNext());
-        }
-        return mockList;
     }
 
     public void close() {
@@ -139,10 +109,12 @@ public class DatabaseHandler {
     }
 
     public Screen selectScreenById(int screen_id) {
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
         String[] columns = new String[] {SCREEN_ID, SCREEN_URI};
         Cursor cursor = database.query(true, SCREEN_TABLE, columns, SCREEN_ID+ " =? ", new String[] {String.valueOf(screen_id)}, null, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             cursor.moveToFirst();
+            database.close();
             return new Screen(Integer.parseInt(cursor.getString(0)), Uri.parse(cursor.getString(1)));
         }
         return null;

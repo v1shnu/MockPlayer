@@ -10,20 +10,20 @@ import android.net.Uri;
  * To change this template use File | Settings | File Templates.
  */
 public class Screen {
-    int screen_id;
+    int screenId;
     Uri image;
 
-    public Screen(int screen_id, Uri image) {
-        this.screen_id = screen_id;
+    public Screen(int screenId, Uri image) {
+        this.screenId = screenId;
         this.image = image;
     }
 
-    public int getScreen_id() {
-        return screen_id;
+    public int getScreenId() {
+        return screenId;
     }
 
-    public void setScreen_id(int screen_id) {
-        this.screen_id = screen_id;
+    public void setScreenId(int screenId) {
+        this.screenId = screenId;
     }
 
     public Uri getImage() {

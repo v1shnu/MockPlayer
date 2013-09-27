@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import com.vishnu.mockplayer.utilities.CustomImageView;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
 import com.vishnu.mockplayer.utilities.Utilities;
@@ -23,7 +22,6 @@ import java.io.InputStream;
 public class StoryDefiner extends Activity {
 
     private static final int SELECT_PHOTO = 100;
-    private DatabaseHandler db;
     private MockPlayerApplication application;
     private static boolean menuButton = false;
     private static boolean backButton = false;
@@ -31,10 +29,10 @@ public class StoryDefiner extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_definer);
-        db = new DatabaseHandler(getApplicationContext());
         application = MockPlayerApplication.getInstance();
         menuButton = false;
         backButton = false;
+        Utilities.displayToast(getApplicationContext(), "Select the portion of the image you want to assign a task to");
     }
 
     @Override
@@ -49,7 +47,6 @@ public class StoryDefiner extends Activity {
         InputStream stream = Utilities.convertUriToStream(getApplicationContext(), sourceImage);
         Bitmap image = Utilities.decodeSampledBitmapFromResource(stream, imageView.getWidth(), imageView.getHeight());
         imageView.setImageBitmap(image);
-        Utilities.displayToast(getApplicationContext(), "Click the portion of the image you want to assign a task to");
     }
 
     public void assignTaskToMenuButton(View view) {
@@ -90,12 +87,13 @@ public class StoryDefiner extends Activity {
                     Uri sourceImage= imageReturnedIntent.getData();
                     CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
                     //Push the selected image into screens
-                    int destination = db.createScreen(sourceImage.toString(), application.getMock_id());
+                    DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                    int destination = db.createScreen(sourceImage.toString(), application.getMockId());
                     //Push the selected co-ordinates, source and destination into action
-                    db.createAction(getIntent().getIntExtra("source_id", 0), imageView.x1, imageView.y1, imageView.x2, imageView.y2, String.valueOf(menuButton), String.valueOf(backButton), destination);
+                    db.createAction(getIntent().getIntExtra("source", 0), imageView.x1, imageView.y1, imageView.x2, imageView.y2, String.valueOf(menuButton), String.valueOf(backButton), destination);
 
                     Intent storyDefinerIntent = new Intent(this, StoryDefiner.class);
-                    storyDefinerIntent.putExtra("source_id", destination);
+                    storyDefinerIntent.putExtra("source", destination);
                     storyDefinerIntent.putExtra("image",sourceImage);
                     startActivity(storyDefinerIntent);
                 }

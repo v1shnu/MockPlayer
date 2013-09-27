@@ -22,12 +22,9 @@ import com.vishnu.mockplayer.utilities.Utilities;
  */
 public class ListOfFlows extends ListActivity {
 
-    DatabaseHandler db;
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flow_player);
-        db = new DatabaseHandler(getApplicationContext());
         populateList("");
         ListView listView = getListView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -41,7 +38,7 @@ public class ListOfFlows extends ListActivity {
 
     private void playMock(long id) {
         Intent intent = new Intent(ListOfFlows.this, MockPlayer.class);
-        intent.putExtra("mock_id", (int) id);
+        intent.putExtra("mockId", (int) id);
         startActivity(intent);
     }
 
@@ -71,11 +68,11 @@ public class ListOfFlows extends ListActivity {
     };
 
     public void populateList(String query) {
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         String[] columns = new String[] {"name", "timestamp"};
         int [] to = new int[] {R.id.name, R.id.time};
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.mock_list_item, db.queryForMocks(query), columns, to);
         setListAdapter(adapter);
-        db.close();
     }
 
     @Override
