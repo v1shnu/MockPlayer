@@ -5,6 +5,7 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import static com.vishnu.mockplayer.contracts.MockPlayerContract.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,9 +18,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "MockPlayerDB";
     private static final int DATABASE_VERSION = 2;
-    private static final String CREATE_MOCKS_TABLE = "create table if not exists mocks ( _id integer primary key autoincrement not null, name text not null, timestamp text not null);";
-    private static final String CREATE_SCREENS_TABLE = "create table if not exists screens ( _id integer primary key autoincrement not null, uri text not null, mock_id integer not null);";
-    private static final String CREATE_ACTIONS_TABLE = "create table if not exists actions ( _id integer primary key autoincrement not null, source_id integer not null, x1 real not null, y1 real not null, x2 real not null, y2 real not null, menuButton text not null, backButton text not null, destination_id integer not null);";
+    private static final String CREATE_MOCKS_TABLE = "create table if not exists "+ MockEntry.TABLE_NAME+" ( "+ MockEntry._ID+" integer primary key autoincrement not null, "+ MockEntry.COLUMN_NAME_ENTRY_NAME+" text not null, "+ MockEntry.COLUMN_NAME_TIMESTAMP+" text not null);";
+    private static final String CREATE_SCREENS_TABLE = "create table if not exists "+ ScreenEntry.TABLE_NAME+" ( "+ ScreenEntry._ID+" integer primary key autoincrement not null, "+ ScreenEntry.COLUMN_NAME_URI+" text not null, "+ ScreenEntry.COLUMN_NAME_MOCK_ID+" integer not null);";
+    private static final String CREATE_ACTIONS_TABLE = "create table if not exists "+ActionEntry.TABLE_NAME+" ( "+ActionEntry._ID+" integer primary key autoincrement not null, "+ActionEntry.COLUMN_NAME_SOURCE_ID+" integer not null, "+ActionEntry.COLUMN_NAME_X1+" real not null, "+ActionEntry.COLUMN_NAME_Y1+" real not null, "+ActionEntry.COLUMN_NAME_X2+" real not null, "+ActionEntry.COLUMN_NAME_Y2+" real not null, "+ActionEntry.COLUMN_NAME_MENU_BUTTON+" text not null, "+ActionEntry.COLUMN_NAME_BACK_BUTTON+" text not null, "+ActionEntry.COLUMN_NAME_DESTINATION_ID+" integer not null);";
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

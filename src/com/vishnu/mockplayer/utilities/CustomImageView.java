@@ -84,7 +84,6 @@ public class CustomImageView extends ImageView {
         try{
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-
                     float [] coordinates = new float[]{event.getX(), event.getY()};
                     Matrix matrix = new Matrix();
                     this.getImageMatrix().invert(matrix);

@@ -47,7 +47,7 @@ public class StoryDefiner extends Activity {
         Uri sourceImage = getIntent().getParcelableExtra("image");
         CustomImageView imageView = (CustomImageView) findViewById(R.id.imageView);
         InputStream stream = Utilities.convertUriToStream(getApplicationContext(), sourceImage);
-        Bitmap image = Utilities.decodeSampledBitmapFromResource(stream, imageView.getWidth(), imageView.getHeight());
+        Bitmap image = Utilities.decodeSampledBitmapFromStream(stream, imageView.getWidth(), imageView.getHeight());
         imageView.setImageBitmap(image);
     }
 

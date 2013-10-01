@@ -18,6 +18,7 @@ import com.vishnu.mockplayer.utilities.Utilities;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -30,7 +31,7 @@ import java.util.Stack;
 public class MockPlayer extends Activity {
 
     ImageView imageView;
-    ArrayList<Action> hotSpots;
+    List<Action> hotSpots;
     Stack<Screen> backStack;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class MockPlayer extends Activity {
                 if(destination != -1) showScreen(destination, true);
                 return false;
             }
-            private int detectHit(float x, float y, ArrayList<Action> hotSpots) {
+            private int detectHit(float x, float y, List<Action> hotSpots) {
                 for(Action hotSpot : hotSpots) {
                     if(x < Math.max(hotSpot.getX1(), hotSpot.getX2()) && x > Math.min(hotSpot.getX1(), hotSpot.getX2()) && y < Math.max(hotSpot.getY1(), hotSpot.getY2()) && y > Math.min(hotSpot.getY1(), hotSpot.getY2())) {
                         return hotSpot.getDestination();
@@ -97,7 +98,7 @@ public class MockPlayer extends Activity {
 
     private void displayImage(Uri screenImage) {
         InputStream stream = Utilities.convertUriToStream(getApplicationContext(), screenImage);
-        Bitmap image = Utilities.decodeSampledBitmapFromResource(stream, imageView.getWidth(), imageView.getHeight());
+        Bitmap image = Utilities.decodeSampledBitmapFromStream(stream, imageView.getWidth(), imageView.getHeight());
         imageView.setImageBitmap(image);
         Utilities.log("Displaying : "+imageView.getHeight());
     }
@@ -110,16 +111,14 @@ public class MockPlayer extends Activity {
 
     @Override
     public void onBackPressed() {
-        try {
+        if (hotSpots != null) {
             for(Action hotspot : hotSpots) {
-                if(hotspot.isBackButton() == true) {
+                if(hotspot.isBackButton()) {
                     emptyBackStack();
                     showScreen(hotspot.getDestination(), true);
                     return;
                 }
             }
-        }
-        catch(Exception e) {
         }
 
         if(backStack.size() == 1) {
@@ -137,17 +136,14 @@ public class MockPlayer extends Activity {
     }
 
     public void onMenuButtonPressed() {
-        try {
+        if(hotSpots != null) {
             for(Action hotspot : hotSpots) {
-                if(hotspot.isMenuButton() == true) {
+                if(hotspot.isMenuButton()) {
                     showScreen(hotspot.getDestination(), true);
                     return;
                 }
             }
         }
-        catch(Exception e) {
-        }
-
     }
 
     @Override

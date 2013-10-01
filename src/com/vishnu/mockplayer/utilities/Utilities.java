@@ -52,7 +52,7 @@ public class Utilities {
         return inSampleSize;
     }
 
-    public static Bitmap decodeSampledBitmapFromResource(InputStream imageStream, int reqWidth, int reqHeight) {
+    public static Bitmap decodeSampledBitmapFromStream(InputStream imageStream, int reqWidth, int reqHeight) {
         byte[] byteArray = new byte[0];
         byte[] buffer = new byte[1024];
         int length, count=0;
