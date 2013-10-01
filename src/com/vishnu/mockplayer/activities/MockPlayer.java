@@ -1,4 +1,4 @@
-package com.vishnu.mockplayer;
+package com.vishnu.mockplayer.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import com.vishnu.mockplayer.models.HotSpots;
+import com.vishnu.mockplayer.R;
+import com.vishnu.mockplayer.models.Action;
 import com.vishnu.mockplayer.models.Screen;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
 import com.vishnu.mockplayer.utilities.Utilities;
@@ -29,7 +30,7 @@ import java.util.Stack;
 public class MockPlayer extends Activity {
 
     ImageView imageView;
-    ArrayList<HotSpots> hotSpots;
+    ArrayList<Action> hotSpots;
     Stack<Screen> backStack;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,8 @@ public class MockPlayer extends Activity {
                 if(destination != -1) showScreen(destination, true);
                 return false;
             }
-            private int detectHit(float x, float y, ArrayList<HotSpots> hotSpots) {
-                for(HotSpots hotSpot : hotSpots) {
+            private int detectHit(float x, float y, ArrayList<Action> hotSpots) {
+                for(Action hotSpot : hotSpots) {
                     if(x < Math.max(hotSpot.getX1(), hotSpot.getX2()) && x > Math.min(hotSpot.getX1(), hotSpot.getX2()) && y < Math.max(hotSpot.getY1(), hotSpot.getY2()) && y > Math.min(hotSpot.getY1(), hotSpot.getY2())) {
                         return hotSpot.getDestination();
                     }
@@ -110,7 +111,7 @@ public class MockPlayer extends Activity {
     @Override
     public void onBackPressed() {
         try {
-            for(HotSpots hotspot : hotSpots) {
+            for(Action hotspot : hotSpots) {
                 if(hotspot.isBackButton() == true) {
                     emptyBackStack();
                     showScreen(hotspot.getDestination(), true);
@@ -137,7 +138,7 @@ public class MockPlayer extends Activity {
 
     public void onMenuButtonPressed() {
         try {
-            for(HotSpots hotspot : hotSpots) {
+            for(Action hotspot : hotSpots) {
                 if(hotspot.isMenuButton() == true) {
                     showScreen(hotspot.getDestination(), true);
                     return;

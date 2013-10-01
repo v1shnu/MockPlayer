@@ -1,4 +1,4 @@
-package com.vishnu.mockplayer;
+package com.vishnu.mockplayer.activities;
 
 import android.app.ListActivity;
 import android.app.SearchManager;
@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
+import com.vishnu.mockplayer.R;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
 import com.vishnu.mockplayer.utilities.Utilities;
 
@@ -71,7 +72,7 @@ public class ListOfFlows extends ListActivity {
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         String[] columns = new String[] {"name", "timestamp"};
         int [] to = new int[] {R.id.name, R.id.time};
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.mock_list_item, db.queryForMocks(query), columns, to);
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.mock_list_item, db.queryForMocks(query), columns, to, 0);
         setListAdapter(adapter);
     }
 

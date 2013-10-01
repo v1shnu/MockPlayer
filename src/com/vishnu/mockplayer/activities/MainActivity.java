@@ -1,9 +1,10 @@
-package com.vishnu.mockplayer;
+package com.vishnu.mockplayer.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import com.vishnu.mockplayer.R;
 
 public class MainActivity extends Activity{
     /**

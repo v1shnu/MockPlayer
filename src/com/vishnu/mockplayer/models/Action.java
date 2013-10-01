@@ -7,18 +7,17 @@ package com.vishnu.mockplayer.models;
  * Time: 1:39 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HotSpots {
+public class Action {
     private float x1, y1, x2, y2;
     private boolean menuButton, backButton;
-
     private int destination;
 
-    public HotSpots(float x1, float y1, float x2, float y2, boolean menuButton, boolean backButton, int destination) {
-        this.menuButton = menuButton;
+    public Action(float x1, float y1, float x2, float y2, boolean menuButton, boolean backButton, int destination) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+        this.menuButton = menuButton;
         this.backButton = backButton;
         this.destination = destination;
     }

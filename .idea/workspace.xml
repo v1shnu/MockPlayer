@@ -27,22 +27,24 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" name="Default" comment="Images are now resampled before displaying them onscreen.&#10;Way to go! :D">
+    <list default="true" id="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/FirstImageSelector.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/FirstImageSelector.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/FlowNamingDialog.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/FlowNamingDialog.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/ListOfFlows.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/ListOfFlows.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/MainActivity.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/MainActivity.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayer.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/MockPlayer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayerApplication.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/MockPlayerApplication.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/StoryDefiner.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/StoryDefiner.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/models/HotSpots.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Action.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/DatabaseHandler.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/DatabaseHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/FirstImageSelector.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/FirstImageSelector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/FlowNamingDialog.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/FlowNamingDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/ListOfFlows.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/ListOfFlows.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayer.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayerApplication.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayerApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Screen.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Screen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vishnu/mockplayer/StoryDefiner.java" afterPath="$PROJECT_DIR$/src/com/vishnu/mockplayer/StoryDefiner.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MockPlayer.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/fragment.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1380280339370" ignored="false" />
     <file path="/main.xml" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1378975178104" ignored="false" />
-    <file path="/Dummy.txt" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1380282164060" ignored="false" />
+    <file path="/Dummy.txt" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1380527815076" ignored="false" />
     <file path="/MainActivity.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1379491972676" ignored="false" />
     <file path="/Utilities.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1380204233733" ignored="false" />
     <file path="/FlowCreator.java" changelist="1292d4fc-d72b-4cb8-aedd-894ad11caf3a" time="1378982504397" ignored="false" />
@@ -143,19 +145,21 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="FirstImageSelector.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/FirstImageSelector.java">
+        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/FirstImageSelector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="24" selection-start="501" selection-end="501" vertical-scroll-proportion="0.0">
+            <state line="20" column="24" selection-start="606" selection-end="606" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseHandler.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DatabaseHandler.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/DatabaseHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="106" column="19" selection-start="4617" selection-end="4617" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="43" column="131" selection-start="1678" selection-end="1678" vertical-scroll-proportion="0.7070707">
+              <folding>
+                <element signature="e#3045#3053#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -163,61 +167,43 @@
       <file leaf-file-name="DatabaseHelper.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/DatabaseHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="20" selection-start="1644" selection-end="1644" vertical-scroll-proportion="0.0">
+            <state line="30" column="0" selection-start="1644" selection-end="1644" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ListOfFlows.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/ListOfFlows.java">
+        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/ListOfFlows.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="30" selection-start="693" selection-end="693" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="13" selection-start="158" selection-end="158" vertical-scroll-proportion="0.0">
+            <state line="74" column="103" selection-start="2695" selection-end="2695" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="FlowNamingDialog.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/FlowNamingDialog.java">
+        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/FlowNamingDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="13" selection-start="543" selection-end="543" vertical-scroll-proportion="0.0">
+            <state line="53" column="11" selection-start="2049" selection-end="2049" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MockPlayer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayer.java">
+      <file leaf-file-name="Action.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Action.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="53" selection-start="827" selection-end="827" vertical-scroll-proportion="0.0">
+            <state line="3" column="20" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StoryDefiner.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/StoryDefiner.java">
+      <file leaf-file-name="Mock.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Mock.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="20" selection-start="1322" selection-end="1322" vertical-scroll-proportion="0.8108108">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MockPlayerApplication.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayerApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="27" selection-start="384" selection-end="384" vertical-scroll-proportion="0.0">
+            <state line="11" column="13" selection-start="232" selection-end="232" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -226,7 +212,25 @@
       <file leaf-file-name="Screen.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Screen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="45" selection-start="665" selection-end="665" vertical-scroll-proportion="0.0">
+            <state line="11" column="13" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MockPlayerApplication.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/MockPlayerApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="27" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomImageView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/CustomImageView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="299" column="40" selection-start="12581" selection-end="12581" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -252,8 +256,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/res/xml/searchable.xml" />
-        <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/SearchResultsActivity.java" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/DatabaseHelper.java" />
         <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/models/HotSpots.java" />
@@ -263,11 +265,13 @@
         <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/Utilities.java" />
         <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayerApplication.java" />
         <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Screen.java" />
-        <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/DatabaseHandler.java" />
         <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayer.java" />
         <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/StoryDefiner.java" />
-        <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/ListOfFlows.java" />
         <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/FirstImageSelector.java" />
+        <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/ListOfFlows.java" />
+        <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/DatabaseHandler.java" />
+        <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/FlowNamingDialog.java" />
+        <option value="$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Action.java" />
       </list>
     </option>
   </component>
@@ -332,7 +336,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -348,24 +351,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="MockPlayer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MockPlayer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MockPlayer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mockplayer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -423,6 +408,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mockplayer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MockPlayer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MockPlayer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -465,23 +472,24 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="63" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="64" />
     <property name="OverrideImplement.combined" value="true" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="64" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="recentsLimit" value="5" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="63" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../pwm_android" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="67" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="699" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="710" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="699" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="68" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="65" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -542,19 +550,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -581,6 +576,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -637,7 +645,7 @@
     </configuration>
     <configuration default="false" name="MockPlayer" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="MockPlayer" />
-      <option name="ACTIVITY_CLASS" value="com.vishnu.mockplayer.MainActivity" />
+      <option name="ACTIVITY_CLASS" value="com.vishnu.mockplayer.activities.MainActivity" />
       <option name="MODE" value="specific_activity" />
       <option name="DEPLOY" value="true" />
       <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
@@ -857,7 +865,11 @@
       <created>1380204892222</created>
       <updated>1380204892222</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Refactored Code -_-">
+      <created>1380282528507</created>
+      <updated>1380282528507</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -882,21 +894,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="1081" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5133405" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21184632" sideWeight="0.6958378" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31163287" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30416223" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3035144" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.7246531" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30416223" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29028815" sideWeight="0.5683031" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -904,7 +914,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.375" sideWeight="0.57166666" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32337245" sideWeight="0.6958378" order="0" side_tool="true" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32337245" sideWeight="0.69648564" order="0" side_tool="true" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20811099" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3271078" sideWeight="0.6958378" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.57310563" order="2" side_tool="false" content_ui="combo" />
@@ -912,6 +922,8 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32337245" sideWeight="0.06830309" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5133405" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30416223" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -957,7 +969,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Images are now resampled before displaying them onscreen.&#10;Way to go! :D" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored Code -_-" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -971,7 +983,6 @@
     <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Can now resize selection by dragging on the corners.&#10;That was fun :D" />
     <MESSAGE value="Variables that need to be available globally will now be listed in the Application class.&#10;Feels like a hack :/" />
     <MESSAGE value="Added an extra button to mark the end of the process.&#10;Done." />
     <MESSAGE value="Incorporated new database schema into the app.&#10;So much work left. Uff." />
@@ -996,6 +1007,7 @@
     <MESSAGE value="Syncing workplace.xml" />
     <MESSAGE value="Mocks can now be deleted on long pressing.&#10;Booga! :D" />
     <MESSAGE value="Images are now resampled before displaying them onscreen.&#10;Way to go! :D" />
+    <MESSAGE value="Refactored Code -_-" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1005,21 +1017,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/CustomImageView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="299" column="40" selection-start="12581" selection-end="12581" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_story_definer.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="60" selection-start="1250" selection-end="1250" vertical-scroll-proportion="0.0">
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../Tools/android-sdk-linux/sources/android-17/android/graphics/BitmapFactory.java">
@@ -1034,6 +1039,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/StoryDefiner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="26" selection-start="1950" selection-end="1950" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/MockPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="24" selection-start="868" selection-end="868" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="201" selection-end="201" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/ListOfFlows.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="103" selection-start="2695" selection-end="2695" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/FirstImageSelector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="24" selection-start="606" selection-end="606" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/activities/FlowNamingDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="11" selection-start="2049" selection-end="2049" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Mock.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="13" selection-start="232" selection-end="232" vertical-scroll-proportion="0.0">
@@ -1041,80 +1088,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/models/HotSpots.java">
+    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Screen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0">
+        <state line="11" column="13" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Screen.java">
+    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/models/Action.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="45" selection-start="665" selection-end="665" vertical-scroll-proportion="0.0">
+        <state line="3" column="20" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/MockPlayerApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="27" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/CustomImageView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="299" column="40" selection-start="12581" selection-end="12581" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/DatabaseHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="20" selection-start="1644" selection-end="1644" vertical-scroll-proportion="0.0">
+        <state line="30" column="0" selection-start="1644" selection-end="1644" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/utilities/DatabaseHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="19" selection-start="4617" selection-end="4617" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/FirstImageSelector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="24" selection-start="501" selection-end="501" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/FlowNamingDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="13" selection-start="543" selection-end="543" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/ListOfFlows.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="30" selection-start="693" selection-end="693" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="158" selection-end="158" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="53" selection-start="827" selection-end="827" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/MockPlayerApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="27" selection-start="384" selection-end="384" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vishnu/mockplayer/StoryDefiner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="20" selection-start="1322" selection-end="1322" vertical-scroll-proportion="0.8108108">
-          <folding />
+        <state line="43" column="131" selection-start="1678" selection-end="1678" vertical-scroll-proportion="0.7070707">
+          <folding>
+            <element signature="e#3045#3053#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,4 +1,4 @@
-package com.vishnu.mockplayer;
+package com.vishnu.mockplayer.utilities;
 
 import android.app.Application;
 

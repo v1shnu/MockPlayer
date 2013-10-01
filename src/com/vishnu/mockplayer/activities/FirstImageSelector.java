@@ -1,10 +1,12 @@
-package com.vishnu.mockplayer;
+package com.vishnu.mockplayer.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import com.vishnu.mockplayer.utilities.MockPlayerApplication;
+import com.vishnu.mockplayer.R;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
 
 /**

@@ -1,4 +1,4 @@
-package com.vishnu.mockplayer;
+package com.vishnu.mockplayer.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import com.vishnu.mockplayer.utilities.MockPlayerApplication;
+import com.vishnu.mockplayer.R;
 
 /**
  * Created with IntelliJ IDEA.

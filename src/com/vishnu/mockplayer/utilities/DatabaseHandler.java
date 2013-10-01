@@ -5,8 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import com.vishnu.mockplayer.models.HotSpots;
-import com.vishnu.mockplayer.models.Mock;
+import com.vishnu.mockplayer.models.Action;
 import com.vishnu.mockplayer.models.Screen;
 
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import java.util.Calendar;
  */
 public class DatabaseHandler {
     private DatabaseHelper dbHelper;
-    private SQLiteDatabase database;
     public final static String MOCK_TABLE = "mocks";
     public final static String MOCK_ID = "_id";
     public final static String MOCK_NAME = "name";
@@ -36,7 +34,6 @@ public class DatabaseHandler {
 
     public DatabaseHandler(Context context) {
         dbHelper = new DatabaseHelper(context);
-        database = dbHelper.getReadableDatabase();
     }
 
     public int createMock(String name) {
@@ -76,14 +73,14 @@ public class DatabaseHandler {
         return action_id;
     }
 
-    public ArrayList<HotSpots> getHotSpots(int screen_id) {
+    public ArrayList<Action> getHotSpots(int screen_id) {
         SQLiteDatabase database = dbHelper.getWritableDatabase();
-        ArrayList<HotSpots> hotspots = new ArrayList<HotSpots>();
+        ArrayList<Action> hotspots = new ArrayList<Action>();
         String[] columns = new String[] {"x1", "y1", "x2", "y2", "menuButton", "backButton", DESTINATION_ID};
         Cursor cursor = database.query(true, ACTIONS_TABLE, columns, SOURCE_ID + " =? ", new String[]{String.valueOf(screen_id)}, null, null, null, null);
         if(cursor.moveToFirst()) {
             do {
-                hotspots.add(new HotSpots(Float.parseFloat(cursor.getString(0)), Float.parseFloat(cursor.getString(1)), Float.parseFloat(cursor.getString(2)), Float.parseFloat(cursor.getString(3)), Boolean.parseBoolean(cursor.getString(4)), Boolean.parseBoolean(cursor.getString(5)), Integer.parseInt(cursor.getString(6))));
+                hotspots.add(new Action(Float.parseFloat(cursor.getString(0)), Float.parseFloat(cursor.getString(1)), Float.parseFloat(cursor.getString(2)), Float.parseFloat(cursor.getString(3)), Boolean.parseBoolean(cursor.getString(4)), Boolean.parseBoolean(cursor.getString(5)), Integer.parseInt(cursor.getString(6))));
             } while(cursor.moveToNext());
             database.close();
             return hotspots;
@@ -102,10 +99,6 @@ public class DatabaseHandler {
             return new Screen(Integer.parseInt(cursor.getString(0)), Uri.parse(cursor.getString(1)));
         }
         return null;
-    }
-
-    public void close() {
-        database.close();
     }
 
     public Screen selectScreenById(int screen_id) {
