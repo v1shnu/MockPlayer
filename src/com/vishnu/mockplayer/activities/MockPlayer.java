@@ -17,7 +17,6 @@ import com.vishnu.mockplayer.utilities.DatabaseHandler;
 import com.vishnu.mockplayer.utilities.Utilities;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -93,34 +92,12 @@ public class MockPlayer extends Activity {
         InputStream stream = Utilities.convertUriToStream(getApplicationContext(), screenImage);
         Bitmap image = Utilities.decodeSampledBitmapFromStream(stream, imageView.getWidth(), imageView.getHeight());
         imageView.setImageBitmap(image);
-        Utilities.log("Displaying : "+imageView.getHeight());
     }
 
     private void exitPlayer() {
         Intent intent = new Intent(this, ListOfFlows.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (hotSpots != null) {
-            for(Action hotspot : hotSpots) {
-                if(hotspot.isBackButton()) {
-                    emptyBackStack();
-                    showScreen(hotspot.getDestination(), true);
-                    return;
-                }
-            }
-        }
-
-        if(backStack.size() == 1) {
-            super.onBackPressed();
-            return;
-        }
-        backStack.pop();
-        Screen screen = backStack.peek();
-        showScreen(screen.getScreenId(), false);
     }
 
     private void emptyBackStack() {
@@ -139,12 +116,34 @@ public class MockPlayer extends Activity {
         }
     }
 
+    public void onBackButtonPressed() {
+        if (hotSpots != null) {
+            for(Action hotspot : hotSpots) {
+                if(hotspot.isBackButton()) {
+                    emptyBackStack();
+                    showScreen(hotspot.getDestination(), true);
+                    return;
+                }
+            }
+        }
+        if(backStack.size() == 1) {
+            super.onBackPressed();
+            return;
+        }
+        backStack.pop();
+        Screen screen = backStack.peek();
+        showScreen(screen.getScreenId(), false);
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Utilities.log("Backstack Size : "+backStack.size());
-        if(keyCode == KeyEvent.KEYCODE_MENU) {
-            onMenuButtonPressed();
-            return true;
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_MENU:
+                onMenuButtonPressed();
+                return true;
+            case KeyEvent.KEYCODE_BACK:
+                onBackButtonPressed();
+                return true;
         }
         return super.onKeyDown(keyCode, event);
     }

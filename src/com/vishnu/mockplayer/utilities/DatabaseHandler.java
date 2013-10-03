@@ -122,11 +122,8 @@ public class DatabaseHandler {
     }
 
     public void deleteMock(int mockId) {
-        String deleteQuery = "DELETE FROM "+MockEntry.TABLE_NAME+" WHERE "+MockEntry._ID+"="+mockId;
-        Utilities.log(deleteQuery);
         SQLiteDatabase database = dbHelper.getWritableDatabase();
-        boolean result = database.delete(MockEntry.TABLE_NAME, MockEntry._ID+"="+mockId, null)>0;
-        Utilities.log(String.valueOf(result));
+        database.delete(MockEntry.TABLE_NAME, MockEntry._ID+"="+mockId, null);
         database.close();
     }
 }

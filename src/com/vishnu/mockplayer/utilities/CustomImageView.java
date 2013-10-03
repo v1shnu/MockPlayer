@@ -113,7 +113,6 @@ public class CustomImageView extends ImageView {
         }
         catch (Exception e) {
             e.printStackTrace();
-            Utilities.log(e.getMessage());
         }
         return true;
     }
@@ -316,9 +315,9 @@ public class CustomImageView extends ImageView {
     }
 
     private void constructRectangle(Canvas canvas) {
+        blurScreen(canvas);
         drawSelection(canvas);
         drawCirclesOnBorders(canvas);
-        blurScreen(canvas);
     }
 
     private void drawCirclesOnBorders(Canvas canvas) {
