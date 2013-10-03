@@ -3,6 +3,7 @@ package com.vishnu.mockplayer.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -92,7 +93,8 @@ public class StoryDefiner extends Activity {
                     DatabaseHandler db = new DatabaseHandler(getApplicationContext());
                     int destination = db.createScreen(sourceImage.toString(), application.getMockId());
                     //Push the selected co-ordinates, source and destination into action
-                    db.createAction(getIntent().getIntExtra("source", 0), imageView.x1, imageView.y1, imageView.x2, imageView.y2, String.valueOf(menuButton), String.valueOf(backButton), destination);
+                    RectF selectedCoordinates = imageView.getCoordinates();
+                    db.createAction(getIntent().getIntExtra("source", 0), selectedCoordinates.left, selectedCoordinates.top, selectedCoordinates.right, selectedCoordinates.bottom, String.valueOf(menuButton), String.valueOf(backButton), destination);
 
                     Intent storyDefinerIntent = new Intent(this, StoryDefiner.class);
                     storyDefinerIntent.putExtra("source", destination);

@@ -1,10 +1,7 @@
 package com.vishnu.mockplayer.utilities;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
+import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
@@ -20,182 +17,122 @@ public class CustomImageView extends ImageView {
 
     Paint paint = new Paint();
     Paint blurrer = new Paint();
-    public static int DRAG = 0;
-    public static int DRAW = 1;
-    public static int EXPAND = 2;
-    public static int EXPAND_TYPE = 0;
-    public static int BORDER = 0;
-    public static int CORNER = 1;
-    public static int MODE = DRAG;
-    public static int MINIMUM_DISTANCE = 20;
-    public static int EXPAND_BORDER = 0;
-    public static int EXPAND_CORNER = 0;
-    public static int BORDER_THICKNESS = 5;
-    public static int CIRCLE_RADIUS = 5;
-    public static boolean PORTION_SELECTED = false;
 
-    public float startX, startY, endX, endY, startDragX, dragX, startDragY, dragY;
+    private enum DrawMode {
+        DRAG, DRAW, EXPAND;
+    }
 
-    public float x1, y1, x2, y2;
+    private enum ExpandType {
+        BORDER, CORNER;
+    }
 
-    public CustomImageView(Context context, int startX) {
+    private enum Border {
+        TOP, RIGHT, BOTTOM, LEFT;
+    }
+
+    private enum Corner {
+        TOP_LEFT, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM_LEFT;
+    }
+
+    private ExpandType expandType = ExpandType.BORDER;
+    private DrawMode drawMode = DrawMode.DRAG;
+    private Border expandBorder = Border.BOTTOM;
+    private Corner expandCorner = Corner.BOTTOM_LEFT;
+    private final static int MINIMUM_DISTANCE = 20;
+    private final static int BORDER_THICKNESS = 5;
+    private final static int CIRCLE_RADIUS = 5;
+    private boolean portionSelected = false;
+
+    private PointF start = new PointF(), startDrag = new PointF(), dragged = new PointF();
+
+    private RectF selection = new RectF(), coordinates = new RectF();
+
+
+    public CustomImageView(Context context) {
         super(context);
-        this.startX = startX;
     }
 
     public CustomImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         Utilities.log("Creating a new imageView");
-        paint.setColor(Color.rgb(87,151,238));
+        paint.setColor(Color.rgb(87, 151, 238));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(BORDER_THICKNESS);
         blurrer.setColor(Color.BLACK);
         blurrer.setAlpha(150);
-        DRAW = 1;
-        DRAG = 0;
-        EXPAND = 2;
-        EXPAND_TYPE = 0;
-        BORDER = 0;
-        CORNER = 1;
-        MODE = DRAG;
-        MINIMUM_DISTANCE = 20;
-        EXPAND_BORDER = 0;
-        EXPAND_CORNER = 0;
-        BORDER_THICKNESS = 5;
-        CIRCLE_RADIUS = 5;
-        PORTION_SELECTED = false;
     }
 
     public CustomImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public float[] transformCoordinates(float x, float y) {
-        float [] coordinates = new float [] {x, y};
+    public RectF getCoordinates() {
+        return transformCoordinates(selection);
+    }
+
+    private RectF transformCoordinates(RectF selection) {
         Matrix matrix = new Matrix();
         this.getImageMatrix().invert(matrix);
         matrix.postTranslate(this.getScrollX(), this.getScrollY());
-        matrix.mapPoints(coordinates);
+        RectF coordinates = new RectF();
+        matrix.mapRect(coordinates, selection);
         return coordinates;
     }
 
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         try{
+            PointF clicked = new PointF(event.getX(), event.getY());
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    float [] coordinates = new float[]{event.getX(), event.getY()};
-                    Matrix matrix = new Matrix();
-                    this.getImageMatrix().invert(matrix);
-                    matrix.postTranslate(this.getScrollX(), this.getScrollY());
-                    matrix.mapPoints(coordinates);
-                    Utilities.log("Touched : "+event.getX() + "-"+event.getY());
-                    Utilities.log("Coordinates : "+ coordinates[0] + "-"+coordinates[1]);
-
-                    PORTION_SELECTED = false;
-                    if(touchedCorner(event.getX(), event.getY())) {
-                        Utilities.log("Touched the corner : "+EXPAND_CORNER);
-                        MODE = EXPAND;
-                        EXPAND_TYPE = CORNER;
+                    portionSelected = false;
+                    if(touchedCorner(clicked.x, clicked.y)) {
+                        drawMode = DrawMode.EXPAND;
+                        expandType = ExpandType.CORNER;
                         break;
                     }
-                    if(touchedBorder(event.getX(), event.getY())) {
-                        Utilities.log("Touched the border : "+EXPAND_BORDER);
-                        MODE = EXPAND;
-                        EXPAND_TYPE = BORDER;
+                    if(touchedBorder(clicked.x, clicked.y)) {
+                        drawMode = DrawMode.EXPAND;
+                        expandType = ExpandType.BORDER;
                         break;
                     }
-                    if(touchedInside(event.getX(), event.getY())) {
-                        MODE = DRAG;
-                        startDragX = (int) event.getX();
-                        startDragY = (int) event.getY();
+                    if(touchedInside(clicked.x, clicked.y)) {
+                        drawMode = DrawMode.DRAG;
+                        startDrag.x = clicked.x;
+                        startDrag.y = clicked.y;
                         break;
                     }
-                    MODE = DRAW;
-                    startX = (int) event.getX();
-                    startY = (int) event.getY();
-                    endX = (int) event.getX();
-                    endY = (int) event.getY();
-                    invalidate();
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    if(MODE != EXPAND && ((distanceBetweenPoints(event.getX(), event.getY(), startX, startY) < MINIMUM_DISTANCE) ||
-                            (Math.abs(startX - event.getX()) < MINIMUM_DISTANCE) ||
-                            (Math.abs(startY- event.getY()) < MINIMUM_DISTANCE)
-                    )) {
-                        PORTION_SELECTED = false;
+                    else {
+                        drawMode = DrawMode.DRAW;
+                        start.x = clicked.x;
+                        start.y = clicked.y;
                         invalidate();
                         break;
                     }
-                    PORTION_SELECTED = true;
-                    if(MODE == DRAG) {
-                        dragX = (int) event.getX()-startDragX;
-                        dragY = (int) event.getY()-startDragY;
-                        startDragX = (int) event.getX();
-                        startDragY = (int) event.getY();
-                        endX += dragX;
-                        startX += dragX;
-                        startY += dragY;
-                        endY += dragY;
-                    }
-                    else if(MODE == DRAW) {
-                        endX = (int) event.getX();
-                        endY = (int) event.getY();
-                    }
-                    else if(MODE == EXPAND) {
-                        if(EXPAND_TYPE == BORDER) {
-                            if(EXPAND_BORDER == 0) {
-                                if(startY < endY) startY = event.getY();
-                                else endY = event.getY();
+                case MotionEvent.ACTION_MOVE:
+                    portionSelected = true;
+                    switch (drawMode) {
+                        case DRAW:
+                            selection = new RectF(start.x, start.y, clicked.x, clicked.y);
+                            selection.sort();
+                            break;
+                        case DRAG:
+                            dragSelection(clicked);
+                            break;
+                        case EXPAND:
+                            switch (expandType) {
+                                case BORDER:
+                                    expandSelectionBorder(clicked);
+                                    break;
+                                case CORNER:
+                                    expandSelectionCorner(clicked);
                             }
-                            else if(EXPAND_BORDER == 1) {
-                                if(endX > startX) endX = event.getX();
-                                else startX = event.getX();
-                            }
-                            else if(EXPAND_BORDER == 2) {
-                                if(endY > startY) endY = event.getY();
-                                else startY = event.getY();
-                            }
-                            else if(EXPAND_BORDER == 3) {
-                                if(startX<endX) startX = event.getX();
-                                else endX = event.getX();
-                            }
-                        }
-                        else if(EXPAND_TYPE == CORNER) {
-                            if(EXPAND_CORNER == 0) {
-                                if(startX < endX) startX = event.getX();
-                                else endX = event.getX();
-                                if(startY < endY) startY = event.getY();
-                                else endY = event.getY();
-                            }
-                            else if(EXPAND_CORNER == 1) {
-                                if(startX > endX) startX = event.getX();
-                                else endX = event.getX();
-                                if(startY < endY) startY = event.getY();
-                                else endY = event.getY();
-                            }
-                            else if(EXPAND_CORNER == 2) {
-                                if(startX > endX) startX = event.getX();
-                                else endX = event.getX();
-                                if(startY > endY) startY = event.getY();
-                                else endY = event.getY();
-                            }
-                            else if(EXPAND_CORNER == 3) {
-                                if(startX < endX) startX = event.getX();
-                                else endX = event.getX();
-                                if(startY > endY) startY = event.getY();
-                                else endY = event.getY();
-                            }
-                        }
+                            break;
                     }
                     invalidate();
                     break;
                 case MotionEvent.ACTION_UP:
-                    PORTION_SELECTED = true;
-                    if(MODE == DRAG)
-                        Utilities.log("Moved to : "+"("+x1+", "+y1+") - ("+x2+", "+y2+")");
-                    else
-                        Utilities.log("Selected Area : "+"("+x1+", "+y1+") - ("+x2+", "+y2+")");
+                    portionSelected = true;
                     break;
             }
         }
@@ -206,53 +143,102 @@ public class CustomImageView extends ImageView {
         return true;
     }
 
+    private void dragSelection(PointF clicked) {
+        dragged.x = clicked.x -startDrag.x;
+        dragged.y = clicked.y -startDrag.y;
+        startDrag.x = clicked.x;
+        startDrag.y = clicked.y;
+        selection.left += dragged.x;
+        selection.top += dragged.y;
+        selection.bottom += dragged.y;
+        selection.right += dragged.x;
+    }
+
+    private void expandSelectionBorder(PointF clicked) {
+        if(expandBorder == Border.TOP) {
+            if(selection.top < selection.bottom) selection.top = clicked.y;
+            else selection.bottom = clicked.y;
+        }
+        else if(expandBorder == Border.RIGHT) {
+            if(selection.right > selection.left) selection.right = clicked.x;
+            else selection.left = clicked.x;
+        }
+        else if(expandBorder == Border.BOTTOM) {
+            if(selection.bottom > selection.top) selection.bottom = clicked.y;
+            else selection.top = clicked.y;
+        }
+        else if(expandBorder == Border.LEFT) {
+            if(selection.left<selection.right) selection.left = clicked.x;
+            else selection.right = clicked.x;
+        }
+    }
+
+    private void expandSelectionCorner(PointF clicked) {
+        if(expandCorner == Corner.TOP_LEFT) {
+            if(selection.left < selection.right) selection.left = clicked.x;
+            else selection.right = clicked.x;
+            if(selection.top < selection.bottom) selection.top = clicked.y;
+            else selection.bottom = clicked.y;
+        }
+        else if(expandCorner == Corner.TOP_RIGHT) {
+            if(selection.left > selection.right) selection.left = clicked.x;
+            else selection.right = clicked.x;
+            if(selection.top < selection.bottom) selection.top = clicked.y;
+            else selection.bottom = clicked.y;
+        }
+        else if(expandCorner == Corner.BOTTOM_RIGHT) {
+            if(selection.left > selection.right) selection.left = clicked.x;
+            else selection.right = clicked.x;
+            if(selection.top > selection.bottom) selection.top = clicked.y;
+            else selection.bottom = clicked.y;
+        }
+        else if(expandCorner == Corner.BOTTOM_LEFT) {
+            if(selection.left < selection.right) selection.left = clicked.x;
+            else selection.right = clicked.x;
+            if(selection.top > selection.bottom) selection.top = clicked.y;
+            else selection.bottom = clicked.y;
+        }
+    }
+
     private boolean touchedInside(float x, float y) {
-        return x < Math.max(startX, endX) && x > Math.min(startX, endX) && y < Math.max(startY, endY) && y > Math.min(startY, endY);
+        return x < Math.max(selection.left, selection.right) && x > Math.min(selection.left, selection.right) && y < Math.max(selection.top, selection.bottom) && y > Math.min(selection.top, selection.bottom);
     }
 
     private boolean touchedBorder(float x, float y) {
-        //Higher horizontal line
-        if(isNearLine(y, Math.min(startY, endY)) && isBetweenLines(startX, endX, x)) {
-            EXPAND_BORDER = 0;
+        if(isNearLine(y, Math.min(selection.top, selection.bottom)) && isBetweenLines(selection.left, selection.right, x)) {
+            expandBorder = Border.TOP;
             return true;
         }
-        //Second vertical line
-        if(isNearLine(x, Math.max(startX, endX)) && isBetweenLines(startY, endY, y)) {
-            EXPAND_BORDER = 1;
+        if(isNearLine(x, Math.max(selection.left, selection.right)) && isBetweenLines(selection.top, selection.bottom, y)) {
+            expandBorder = Border.RIGHT;
             return true;
         }
-        //Lower horizontal line
-        if(isNearLine(y, Math.max(startY, endY)) && isBetweenLines(startX, endX, x)) {
-            EXPAND_BORDER = 2;
+        if(isNearLine(y, Math.max(selection.top, selection.bottom)) && isBetweenLines(selection.left, selection.right, x)) {
+            expandBorder = Border.BOTTOM;
             return true;
         }
-        //First vertical line
-        if(isNearLine(x, Math.min(startX, endX)) && isBetweenLines(startY, endY, y)) {
-            EXPAND_BORDER = 3;
+        if(isNearLine(x, Math.min(selection.left, selection.right)) && isBetweenLines(selection.top, selection.bottom, y)) {
+            expandBorder = Border.LEFT;
             return true;
         }
         return false;
     }
 
     private boolean touchedCorner(float x, float y) {
-        //Top left corner
-        if(isNearPoint(x, y, Math.min(startX, endX), Math.min(startY, endY))) {
-            EXPAND_CORNER = 0;
+        if(isNearPoint(new PointF(x, y), new PointF(Math.min(selection.left, selection.right), Math.min(selection.top, selection.bottom)))) {
+            expandCorner = Corner.TOP_LEFT;
             return true;
         }
-        //Top right corner
-        if(isNearPoint(x, y, Math.max(startX, endX), Math.min(startY, endY))) {
-            EXPAND_CORNER = 1;
+        if(isNearPoint(new PointF(x, y), new PointF(Math.max(selection.left, selection.right), Math.min(selection.top, selection.bottom)))) {
+            expandCorner = Corner.TOP_RIGHT;
             return true;
         }
-        //Bottom right corner
-        if(isNearPoint(x, y, Math.max(startX, endX), Math.max(startY, endY))) {
-            EXPAND_CORNER = 2;
+        if(isNearPoint(new PointF(x, y), new PointF(Math.max(selection.left, selection.right), Math.max(selection.top, selection.bottom)))) {
+            expandCorner = Corner.BOTTOM_RIGHT;
             return true;
         }
-        //Bottom left corner
-        if(isNearPoint(x, y, Math.min(startX, endX), Math.max(startY, endY))) {
-            EXPAND_CORNER = 3;
+        if(isNearPoint(new PointF(x, y), new PointF(Math.min(selection.left, selection.right), Math.max(selection.top, selection.bottom)))) {
+            expandCorner = Corner.BOTTOM_LEFT;
             return true;
         }
         return false;
@@ -268,42 +254,39 @@ public class CustomImageView extends ImageView {
         return Math.abs(p1-p2) <= MINIMUM_DISTANCE;
     }
 
-    private boolean isNearPoint(float x1, float y1, float x2, float y2) {
-        return distanceBetweenPoints(x1, y1, x2, y2) <= MINIMUM_DISTANCE;
+    private boolean isNearPoint(PointF p1, PointF p2) {
+        return distanceBetweenPoints(p1, p2) <= MINIMUM_DISTANCE;
     }
 
-    private float distanceBetweenPoints(float x1, float y1, float x2, float y2) {
-        return (float) Math.sqrt(((x2-x1)*(x2-x1)) + ((y2-y1)*(y2-y1)));
+    private float distanceBetweenPoints(PointF p1, PointF p2) {
+        return (float) Math.sqrt(((p2.x-p1.x)*(p2.x-p1.x)) + ((p2.y-p1.y)*(p2.y-p1.y)));
     }
 
     private void constructRectangle(Canvas canvas) {
-        canvas.drawRect(0, 0, Math.min(startX, endX), canvas.getHeight(), blurrer);
-        canvas.drawRect(Math.max(startX, endX), 0, canvas.getWidth(), canvas.getHeight(), blurrer);
-        canvas.drawRect(Math.min(startX, endX), 0, Math.max(startX, endX), Math.min(startY, endY), blurrer);
-        canvas.drawRect(Math.min(startX, endX), Math.max(startY, endY), Math.max(startX, endX), canvas.getHeight(), blurrer);
-        canvas.drawRect(Math.min(startX, endX), Math.min(startY, endY), Math.max(startX, endX), Math.max(startY, endY), paint);
-        canvas.drawCircle((startX + endX) / 2, endY, CIRCLE_RADIUS, paint);
-        canvas.drawCircle(endX, (startY + endY) / 2, CIRCLE_RADIUS, paint);
-        canvas.drawCircle((startX + endX) / 2, startY, CIRCLE_RADIUS, paint);
-        canvas.drawCircle(startX, (startY + endY) / 2, CIRCLE_RADIUS, paint);
-        canvas.drawCircle(Math.min(startX, endX), Math.min(startY, endY), CIRCLE_RADIUS, paint);
-        canvas.drawCircle(Math.max(startX, endX), Math.min(startY, endY), CIRCLE_RADIUS, paint);
-        canvas.drawCircle(Math.max(startX, endX), Math.max(startY, endY), CIRCLE_RADIUS, paint);
-        canvas.drawCircle(Math.min(startX, endX), Math.max(startY, endY), CIRCLE_RADIUS, paint);
+        canvas.drawRect(0, 0, selection.left, canvas.getHeight(), blurrer);
+        canvas.drawRect(selection.right, 0, canvas.getWidth(), canvas.getHeight(), blurrer);
+        canvas.drawRect(selection.left, 0, selection.right, selection.top, blurrer);
+        canvas.drawRect(selection.left, selection.bottom, selection.right, canvas.getHeight(), blurrer);
+        canvas.drawRect(selection.left, selection.top, selection.right, selection.bottom, paint);
+        canvas.drawCircle(selection.centerX(), selection.bottom, CIRCLE_RADIUS, paint);
+        canvas.drawCircle(selection.right, selection.centerY(), CIRCLE_RADIUS, paint);
+        canvas.drawCircle(selection.centerX(), selection.top, CIRCLE_RADIUS, paint);
+        canvas.drawCircle(selection.left, selection.centerY(), CIRCLE_RADIUS, paint);
+        canvas.drawCircle(selection.left, selection.top, CIRCLE_RADIUS, paint);
+        canvas.drawCircle(selection.right, selection.top, CIRCLE_RADIUS, paint);
+        canvas.drawCircle(selection.right, selection.bottom, CIRCLE_RADIUS, paint);
+        canvas.drawCircle(selection.left, selection.bottom, CIRCLE_RADIUS, paint);
     }
 
     private void calculateCoordinates() {
-        float [] startingPoints = transformCoordinates(startX, startY);
-        x1 = startingPoints[0];
-        y1 = startingPoints[1];
-        float [] endingPoints = transformCoordinates(endX, endY);
-        x2 = endingPoints[0];
-        y2 = endingPoints[1];
+        if(selection.top < selection.bottom && selection.left < selection.right) Utilities.log("Correct");
+        coordinates = transformCoordinates(selection);
+        Utilities.log("Selected Coordinates : "+"("+coordinates.left+", "+coordinates.top+") - ("+coordinates.right+", "+coordinates.bottom+")");
     }
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(PORTION_SELECTED) {
+        if(portionSelected) {
             constructRectangle(canvas);
             calculateCoordinates();
         }
