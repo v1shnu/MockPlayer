@@ -120,13 +120,7 @@ public class CustomImageView extends ImageView {
                             dragSelection(clicked);
                             break;
                         case EXPAND:
-                            switch (expandType) {
-                                case BORDER:
-                                    expandSelectionBorder(clicked);
-                                    break;
-                                case CORNER:
-                                    expandSelectionCorner(clicked);
-                            }
+                            expandSelection(clicked);
                             break;
                     }
                     invalidate();
@@ -143,6 +137,16 @@ public class CustomImageView extends ImageView {
         return true;
     }
 
+    private void expandSelection(PointF clicked) {
+        switch (expandType) {
+            case BORDER:
+                expandSelectionBorder(clicked);
+                break;
+            case CORNER:
+                expandSelectionCorner(clicked);
+        }
+    }
+
     private void dragSelection(PointF clicked) {
         dragged.x = clicked.x -startDrag.x;
         dragged.y = clicked.y -startDrag.y;
@@ -155,48 +159,64 @@ public class CustomImageView extends ImageView {
     }
 
     private void expandSelectionBorder(PointF clicked) {
-        if(expandBorder == Border.TOP) {
-            if(selection.top < selection.bottom) selection.top = clicked.y;
-            else selection.bottom = clicked.y;
-        }
-        else if(expandBorder == Border.RIGHT) {
-            if(selection.right > selection.left) selection.right = clicked.x;
-            else selection.left = clicked.x;
-        }
-        else if(expandBorder == Border.BOTTOM) {
-            if(selection.bottom > selection.top) selection.bottom = clicked.y;
-            else selection.top = clicked.y;
-        }
-        else if(expandBorder == Border.LEFT) {
-            if(selection.left<selection.right) selection.left = clicked.x;
-            else selection.right = clicked.x;
+        switch (expandBorder) {
+            case TOP:
+                if(clicked.y > selection.bottom) {
+                    selection.top = selection.bottom;
+                    selection.bottom = clicked.y;
+                    expandBorder = Border.BOTTOM;
+                }
+                else
+                    selection.top = clicked.y;
+                break;
+            case RIGHT:
+                if(clicked.x < selection.left) {
+                    selection.right = selection.left;
+                    selection.left = clicked.x;
+                    expandBorder = Border.LEFT;
+                }
+                else
+                    selection.right = clicked.x;
+                break;
+            case BOTTOM:
+                if(clicked.y < selection.top) {
+                    selection.bottom = selection.top;
+                    selection.top = clicked.y;
+                    expandBorder = Border.TOP;
+                }
+                else
+                    selection.bottom = clicked.y;
+                break;
+            case LEFT:
+                if(clicked.x > selection.right) {
+                    selection.left = selection.right;
+                    selection.right = clicked.x;
+                    expandBorder = Border.RIGHT;
+                }
+                else
+                    selection.left = clicked.x;
+                break;
         }
     }
 
     private void expandSelectionCorner(PointF clicked) {
-        if(expandCorner == Corner.TOP_LEFT) {
-            if(selection.left < selection.right) selection.left = clicked.x;
-            else selection.right = clicked.x;
-            if(selection.top < selection.bottom) selection.top = clicked.y;
-            else selection.bottom = clicked.y;
-        }
-        else if(expandCorner == Corner.TOP_RIGHT) {
-            if(selection.left > selection.right) selection.left = clicked.x;
-            else selection.right = clicked.x;
-            if(selection.top < selection.bottom) selection.top = clicked.y;
-            else selection.bottom = clicked.y;
-        }
-        else if(expandCorner == Corner.BOTTOM_RIGHT) {
-            if(selection.left > selection.right) selection.left = clicked.x;
-            else selection.right = clicked.x;
-            if(selection.top > selection.bottom) selection.top = clicked.y;
-            else selection.bottom = clicked.y;
-        }
-        else if(expandCorner == Corner.BOTTOM_LEFT) {
-            if(selection.left < selection.right) selection.left = clicked.x;
-            else selection.right = clicked.x;
-            if(selection.top > selection.bottom) selection.top = clicked.y;
-            else selection.bottom = clicked.y;
+        switch (expandCorner) {
+            case TOP_LEFT:
+                selection.top = clicked.y;
+                selection.left = clicked.x;
+                break;
+            case TOP_RIGHT:
+                selection.top = clicked.y;
+                selection.right = clicked.x;
+                break;
+            case BOTTOM_RIGHT:
+                selection.bottom = clicked.y;
+                selection.right = clicked.x;
+                break;
+            case BOTTOM_LEFT:
+                selection.bottom = clicked.y;
+                selection.left = clicked.x;
+                break;
         }
     }
 
