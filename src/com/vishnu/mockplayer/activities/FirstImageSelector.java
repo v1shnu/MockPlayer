@@ -9,13 +9,6 @@ import com.vishnu.mockplayer.utilities.MockPlayerApplication;
 import com.vishnu.mockplayer.R;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 19/9/13
- * Time: 6:04 PM
- * To change this template use File | Settings | File Templates.
- */
 public class FirstImageSelector extends Activity {
     private static final int SELECT_PHOTO = 100;
     private MockPlayerApplication application;

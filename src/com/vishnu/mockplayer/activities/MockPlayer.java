@@ -21,13 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 19/9/13
- * Time: 10:15 PM
- * To change this template use File | Settings | File Templates.
- */
 public class MockPlayer extends Activity {
 
     ImageView imageView;

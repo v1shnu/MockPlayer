@@ -2,13 +2,6 @@ package com.vishnu.mockplayer.models;
 
 import android.net.Uri;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 20/9/13
- * Time: 2:33 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Screen {
     int screenId;
     Uri image;

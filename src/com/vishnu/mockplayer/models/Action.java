@@ -1,12 +1,5 @@
 package com.vishnu.mockplayer.models;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 20/9/13
- * Time: 1:39 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Action {
     private float x1, y1, x2, y2;
     private boolean menuButton, backButton;

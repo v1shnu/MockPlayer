@@ -7,13 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import static com.vishnu.mockplayer.contracts.MockPlayerContract.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 16/9/13
- * Time: 4:50 PM
- * To change this template use File | Settings | File Templates.
- */
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "MockPlayerDB";

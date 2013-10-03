@@ -14,13 +14,6 @@ import com.vishnu.mockplayer.R;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
 import com.vishnu.mockplayer.utilities.Utilities;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 12/9/13
- * Time: 2:19 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ListOfFlows extends ListActivity {
 
     public void onCreate(Bundle savedInstanceState) {

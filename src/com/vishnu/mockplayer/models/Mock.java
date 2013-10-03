@@ -2,13 +2,6 @@ package com.vishnu.mockplayer.models;
 
 import java.sql.Timestamp;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 16/9/13
- * Time: 5:08 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Mock {
     private int id;
     private String name;

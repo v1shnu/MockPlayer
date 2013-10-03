@@ -14,13 +14,6 @@ import android.widget.EditText;
 import com.vishnu.mockplayer.utilities.MockPlayerApplication;
 import com.vishnu.mockplayer.R;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 17/9/13
- * Time: 4:33 PM
- * To change this template use File | Settings | File Templates.
- */
 public class FlowNamingDialog extends DialogFragment{
 
     Activity activity;

@@ -6,13 +6,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 12/9/13
- * Time: 7:22 PM
- * To change this template use File | Settings | File Templates.
- */
 public class CustomImageView extends ImageView {
 
     Paint paint = new Paint();

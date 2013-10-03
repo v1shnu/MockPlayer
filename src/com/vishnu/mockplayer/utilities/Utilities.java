@@ -10,13 +10,6 @@ import android.widget.Toast;
 
 import java.io.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 12/9/13
- * Time: 2:13 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Utilities {
     public static void displayToast(Context context, CharSequence text) {
         int duration = Toast.LENGTH_SHORT;

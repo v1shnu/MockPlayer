@@ -15,13 +15,6 @@ import com.vishnu.mockplayer.utilities.Utilities;
 
 import java.io.InputStream;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 12/9/13
- * Time: 3:46 PM
- * To change this template use File | Settings | File Templates.
- */
 public class StoryDefiner extends Activity {
 
     private static final int SELECT_PHOTO = 100;
