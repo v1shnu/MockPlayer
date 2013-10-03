@@ -18,24 +18,24 @@ public class CustomImageView extends ImageView {
     Paint paint = new Paint();
     Paint blurrer = new Paint();
 
-    private enum DrawMode {
-        DRAG, DRAW, EXPAND;
+    private enum SelectionMode {
+        DRAG, DRAW, EXPAND
     }
 
     private enum ExpandType {
-        BORDER, CORNER;
+        BORDER, CORNER
     }
 
     private enum Border {
-        TOP, RIGHT, BOTTOM, LEFT;
+        TOP, RIGHT, BOTTOM, LEFT
     }
 
     private enum Corner {
-        TOP_LEFT, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM_LEFT;
+        TOP_LEFT, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM_LEFT
     }
 
     private ExpandType expandType = ExpandType.BORDER;
-    private DrawMode drawMode = DrawMode.DRAG;
+    private SelectionMode selectionMode = SelectionMode.DRAG;
     private Border expandBorder = Border.BOTTOM;
     private Corner expandCorner = Corner.BOTTOM_LEFT;
     private final static int MINIMUM_DISTANCE = 20;
@@ -45,7 +45,7 @@ public class CustomImageView extends ImageView {
 
     private PointF start = new PointF(), startDrag = new PointF(), dragged = new PointF();
 
-    private RectF selection = new RectF(), coordinates = new RectF();
+    private RectF selection = new RectF();
 
 
     public CustomImageView(Context context) {
@@ -86,23 +86,23 @@ public class CustomImageView extends ImageView {
                 case MotionEvent.ACTION_DOWN:
                     portionSelected = false;
                     if(touchedCorner(clicked.x, clicked.y)) {
-                        drawMode = DrawMode.EXPAND;
+                        selectionMode = SelectionMode.EXPAND;
                         expandType = ExpandType.CORNER;
                         break;
                     }
                     if(touchedBorder(clicked.x, clicked.y)) {
-                        drawMode = DrawMode.EXPAND;
+                        selectionMode = SelectionMode.EXPAND;
                         expandType = ExpandType.BORDER;
                         break;
                     }
                     if(touchedInside(clicked.x, clicked.y)) {
-                        drawMode = DrawMode.DRAG;
+                        selectionMode = SelectionMode.DRAG;
                         startDrag.x = clicked.x;
                         startDrag.y = clicked.y;
                         break;
                     }
                     else {
-                        drawMode = DrawMode.DRAW;
+                        selectionMode = SelectionMode.DRAW;
                         start.x = clicked.x;
                         start.y = clicked.y;
                         invalidate();
@@ -110,10 +110,12 @@ public class CustomImageView extends ImageView {
                     }
                 case MotionEvent.ACTION_MOVE:
                     portionSelected = true;
-                    switch (drawMode) {
+                    switch (selectionMode) {
                         case DRAW:
                             selection = new RectF(start.x, start.y, clicked.x, clicked.y);
                             selection.sort();
+                            if(!movedSufficientDistance())
+                                portionSelected = false;
                             break;
                         case DRAG:
                             dragSelection(clicked);
@@ -134,6 +136,10 @@ public class CustomImageView extends ImageView {
             Utilities.log(e.getMessage());
         }
         return true;
+    }
+
+    private boolean movedSufficientDistance() {
+        return (selection.height() > MINIMUM_DISTANCE && selection.width() > MINIMUM_DISTANCE);
     }
 
     private void expandSelection(PointF clicked) {
@@ -268,7 +274,7 @@ public class CustomImageView extends ImageView {
     }
 
     private boolean touchedInside(float x, float y) {
-        return x < selection.right && x > selection.left && y < selection.bottom && y > selection.top;
+        return selection.contains(x, y);
     }
 
     private boolean touchedBorder(float x, float y) {
