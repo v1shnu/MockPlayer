@@ -58,19 +58,6 @@ public class CustomImageView extends ImageView {
         super(context, attrs, defStyle);
     }
 
-    public RectF getCoordinates() {
-        return transformCoordinates(selection);
-    }
-
-    private RectF transformCoordinates(RectF selection) {
-        Matrix matrix = new Matrix();
-        this.getImageMatrix().invert(matrix);
-        matrix.postTranslate(this.getScrollX(), this.getScrollY());
-        RectF coordinates = new RectF();
-        matrix.mapRect(coordinates, selection);
-        return coordinates;
-    }
-
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         try{
@@ -329,11 +316,12 @@ public class CustomImageView extends ImageView {
     }
 
     private void constructRectangle(Canvas canvas) {
-        canvas.drawRect(0, 0, selection.left, canvas.getHeight(), blurrer);
-        canvas.drawRect(selection.right, 0, canvas.getWidth(), canvas.getHeight(), blurrer);
-        canvas.drawRect(selection.left, 0, selection.right, selection.top, blurrer);
-        canvas.drawRect(selection.left, selection.bottom, selection.right, canvas.getHeight(), blurrer);
-        canvas.drawRect(selection.left, selection.top, selection.right, selection.bottom, paint);
+        drawSelection(canvas);
+        drawCirclesOnBorders(canvas);
+        blurScreen(canvas);
+    }
+
+    private void drawCirclesOnBorders(Canvas canvas) {
         canvas.drawCircle(selection.centerX(), selection.bottom, CIRCLE_RADIUS, paint);
         canvas.drawCircle(selection.right, selection.centerY(), CIRCLE_RADIUS, paint);
         canvas.drawCircle(selection.centerX(), selection.top, CIRCLE_RADIUS, paint);
@@ -342,6 +330,31 @@ public class CustomImageView extends ImageView {
         canvas.drawCircle(selection.right, selection.top, CIRCLE_RADIUS, paint);
         canvas.drawCircle(selection.right, selection.bottom, CIRCLE_RADIUS, paint);
         canvas.drawCircle(selection.left, selection.bottom, CIRCLE_RADIUS, paint);
+    }
+
+    private void blurScreen(Canvas canvas) {
+        canvas.drawRect(0, 0, selection.left, canvas.getHeight(), blurrer);
+        canvas.drawRect(selection.right, 0, canvas.getWidth(), canvas.getHeight(), blurrer);
+        canvas.drawRect(selection.left, 0, selection.right, selection.top, blurrer);
+        canvas.drawRect(selection.left, selection.bottom, selection.right, canvas.getHeight(), blurrer);
+    }
+
+    private void drawSelection(Canvas canvas) {
+        canvas.drawRect(selection.left, selection.top, selection.right, selection.bottom, paint);
+    }
+
+
+    public RectF getCoordinates() {
+        return transformCoordinates(selection);
+    }
+
+    private RectF transformCoordinates(RectF selection) {
+        Matrix matrix = new Matrix();
+        this.getImageMatrix().invert(matrix);
+        matrix.postTranslate(this.getScrollX(), this.getScrollY());
+        RectF coordinates = new RectF();
+        matrix.mapRect(coordinates, selection);
+        return coordinates;
     }
 
     protected void onDraw(Canvas canvas) {
