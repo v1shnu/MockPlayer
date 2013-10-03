@@ -54,7 +54,6 @@ public class CustomImageView extends ImageView {
 
     public CustomImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Utilities.log("Creating a new imageView");
         paint.setColor(Color.rgb(87, 151, 238));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(BORDER_THICKNESS);
@@ -202,42 +201,90 @@ public class CustomImageView extends ImageView {
     private void expandSelectionCorner(PointF clicked) {
         switch (expandCorner) {
             case TOP_LEFT:
-                selection.top = clicked.y;
-                selection.left = clicked.x;
+                if(clicked.y > selection.bottom) {
+                    selection.top = selection.bottom;
+                    selection.bottom = clicked.y;
+                    expandCorner = Corner.BOTTOM_LEFT;
+                }
+                else if(clicked.x > selection.right) {
+                    selection.left = selection.right;
+                    selection.right = clicked.x;
+                    expandCorner = Corner.TOP_RIGHT;
+                }
+                else {
+                    selection.top = clicked.y;
+                    selection.left = clicked.x;
+                }
                 break;
             case TOP_RIGHT:
-                selection.top = clicked.y;
-                selection.right = clicked.x;
+                if(clicked.y > selection.bottom) {
+                    selection.top = selection.bottom;
+                    selection.bottom = clicked.y;
+                    expandCorner = Corner.BOTTOM_RIGHT;
+                }
+                else if(clicked.x < selection.left) {
+                    selection.right = selection.left;
+                    selection.left = clicked.x;
+                    expandCorner = Corner.TOP_LEFT;
+                }
+                else {
+                    selection.top = clicked.y;
+                    selection.right = clicked.x;
+                }
                 break;
             case BOTTOM_RIGHT:
-                selection.bottom = clicked.y;
-                selection.right = clicked.x;
+                if(clicked.y < selection.top) {
+                    selection.bottom = selection.top;
+                    selection.top = clicked.y;
+                    expandCorner = Corner.TOP_RIGHT;
+                }
+                else if(clicked.x < selection.left) {
+                    selection.right = selection.left;
+                    selection.left = clicked.x;
+                    expandCorner = Corner.BOTTOM_LEFT;
+                }
+                else {
+                    selection.bottom = clicked.y;
+                    selection.right = clicked.x;
+                }
                 break;
             case BOTTOM_LEFT:
-                selection.bottom = clicked.y;
-                selection.left = clicked.x;
+                if(clicked.y < selection.top) {
+                    selection.bottom = selection.top;
+                    selection.top = clicked.y;
+                    expandCorner = Corner.TOP_LEFT;
+                }
+                else if(clicked.x > selection.right) {
+                    selection.left = selection.right;
+                    selection.right = clicked.x;
+                    expandCorner = Corner.BOTTOM_RIGHT;
+                }
+                else {
+                    selection.bottom = clicked.y;
+                    selection.left = clicked.x;
+                }
                 break;
         }
     }
 
     private boolean touchedInside(float x, float y) {
-        return x < Math.max(selection.left, selection.right) && x > Math.min(selection.left, selection.right) && y < Math.max(selection.top, selection.bottom) && y > Math.min(selection.top, selection.bottom);
+        return x < selection.right && x > selection.left && y < selection.bottom && y > selection.top;
     }
 
     private boolean touchedBorder(float x, float y) {
-        if(isNearLine(y, Math.min(selection.top, selection.bottom)) && isBetweenLines(selection.left, selection.right, x)) {
+        if(isNearLine(y, selection.top) && isBetweenLines(selection.left, selection.right, x)) {
             expandBorder = Border.TOP;
             return true;
         }
-        if(isNearLine(x, Math.max(selection.left, selection.right)) && isBetweenLines(selection.top, selection.bottom, y)) {
+        if(isNearLine(x, selection.right) && isBetweenLines(selection.top, selection.bottom, y)) {
             expandBorder = Border.RIGHT;
             return true;
         }
-        if(isNearLine(y, Math.max(selection.top, selection.bottom)) && isBetweenLines(selection.left, selection.right, x)) {
+        if(isNearLine(y, selection.bottom) && isBetweenLines(selection.left, selection.right, x)) {
             expandBorder = Border.BOTTOM;
             return true;
         }
-        if(isNearLine(x, Math.min(selection.left, selection.right)) && isBetweenLines(selection.top, selection.bottom, y)) {
+        if(isNearLine(x, selection.left) && isBetweenLines(selection.top, selection.bottom, y)) {
             expandBorder = Border.LEFT;
             return true;
         }
@@ -245,41 +292,41 @@ public class CustomImageView extends ImageView {
     }
 
     private boolean touchedCorner(float x, float y) {
-        if(isNearPoint(new PointF(x, y), new PointF(Math.min(selection.left, selection.right), Math.min(selection.top, selection.bottom)))) {
+        if(isNearPoint(new PointF(x, y), new PointF(selection.left, selection.top))) {
             expandCorner = Corner.TOP_LEFT;
             return true;
         }
-        if(isNearPoint(new PointF(x, y), new PointF(Math.max(selection.left, selection.right), Math.min(selection.top, selection.bottom)))) {
+        if(isNearPoint(new PointF(x, y), new PointF(selection.right, selection.top))) {
             expandCorner = Corner.TOP_RIGHT;
             return true;
         }
-        if(isNearPoint(new PointF(x, y), new PointF(Math.max(selection.left, selection.right), Math.max(selection.top, selection.bottom)))) {
+        if(isNearPoint(new PointF(x, y), new PointF(selection.right, selection.bottom))) {
             expandCorner = Corner.BOTTOM_RIGHT;
             return true;
         }
-        if(isNearPoint(new PointF(x, y), new PointF(Math.min(selection.left, selection.right), Math.max(selection.top, selection.bottom)))) {
+        if(isNearPoint(new PointF(x, y), new PointF(selection.left, selection.bottom))) {
             expandCorner = Corner.BOTTOM_LEFT;
             return true;
         }
         return false;
     }
 
-    private boolean isBetweenLines(float line1, float line2, float line) {
-        float startLine = Math.min(line1, line2);
-        float endLine = Math.max(line1, line2);
-        return (line >= startLine-MINIMUM_DISTANCE && line <= endLine+MINIMUM_DISTANCE);
+    private boolean isBetweenLines(float firstLine, float secondLine, float lineToBeCompared) {
+        float startLine = Math.min(firstLine, secondLine);
+        float endLine = Math.max(firstLine, secondLine);
+        return (lineToBeCompared >= startLine-MINIMUM_DISTANCE && lineToBeCompared <= endLine+MINIMUM_DISTANCE);
     }
 
-    private boolean isNearLine(float p1, float p2) {
-        return Math.abs(p1-p2) <= MINIMUM_DISTANCE;
+    private boolean isNearLine(float firstLine, float secondLine) {
+        return Math.abs(firstLine-secondLine) <= MINIMUM_DISTANCE;
     }
 
-    private boolean isNearPoint(PointF p1, PointF p2) {
-        return distanceBetweenPoints(p1, p2) <= MINIMUM_DISTANCE;
+    private boolean isNearPoint(PointF firstPoint, PointF secondPoint) {
+        return distanceBetweenPoints(firstPoint, secondPoint) <= MINIMUM_DISTANCE;
     }
 
-    private float distanceBetweenPoints(PointF p1, PointF p2) {
-        return (float) Math.sqrt(((p2.x-p1.x)*(p2.x-p1.x)) + ((p2.y-p1.y)*(p2.y-p1.y)));
+    private float distanceBetweenPoints(PointF firstPoint, PointF secondPoint) {
+        return (float) Math.sqrt(Math.pow((secondPoint.x-firstPoint.x), 2) + Math.pow((secondPoint.y-firstPoint.y), 2));
     }
 
     private void constructRectangle(Canvas canvas) {
@@ -298,17 +345,10 @@ public class CustomImageView extends ImageView {
         canvas.drawCircle(selection.left, selection.bottom, CIRCLE_RADIUS, paint);
     }
 
-    private void calculateCoordinates() {
-        if(selection.top < selection.bottom && selection.left < selection.right) Utilities.log("Correct");
-        coordinates = transformCoordinates(selection);
-        Utilities.log("Selected Coordinates : "+"("+coordinates.left+", "+coordinates.top+") - ("+coordinates.right+", "+coordinates.bottom+")");
-    }
-
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if(portionSelected) {
             constructRectangle(canvas);
-            calculateCoordinates();
         }
     }
 }
