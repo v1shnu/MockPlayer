@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import com.vishnu.mockplayer.receivers.ResponseReceiver;
 import com.vishnu.mockplayer.utilities.Utilities;
 
 import java.io.IOException;
@@ -23,7 +24,6 @@ public class UpdateChecker extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Utilities.log("Update Service Started");
         if(connectedToNetwork())
             new CheckLatestVersionAvailable().execute(server);
         else Utilities.log("Not connected to network.");
@@ -71,6 +71,11 @@ public class UpdateChecker extends IntentService {
         @Override
         protected void onPostExecute(String result) {
             Utilities.log("Latest Version Available : "+result);
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction(ResponseReceiver.ACTION_UPDATE);
+            broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+            broadcastIntent.putExtra("message", result);
+            sendBroadcast(broadcastIntent);
             stopSelf();
         }
     }

@@ -19,5 +19,11 @@
         <activity android:name=".activities.FirstImageSelector"/>
         <activity android:name=".activities.MockPlayer" android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         <service android:name=".services.UpdateChecker"/>
+        <receiver android:name=".receivers.ResponseReceiver">
+            <intent-filter>
+                <action android:name="com.vishnu.mockplayer.updatebroadcast" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
