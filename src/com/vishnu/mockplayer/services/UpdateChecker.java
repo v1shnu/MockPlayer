@@ -3,6 +3,7 @@ package com.vishnu.mockplayer.services;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -57,25 +58,35 @@ public class UpdateChecker extends IntentService {
         }
     }
 
-    private class CheckLatestVersionAvailable extends AsyncTask<String, Void, String> {
+    private class CheckLatestVersionAvailable extends AsyncTask<String, Void, Integer> {
 
         @Override
-        protected String doInBackground(String... params) {
+        protected Integer doInBackground(String... params) {
             try {
-                return fetchContent(params[0]);
+                return Integer.parseInt(fetchContent(params[0]));
             } catch(IOException error) {
-                return null;
+                return 0;
             }
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            Utilities.log("Latest Version Available : "+result);
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction(ResponseReceiver.ACTION_UPDATE);
-            broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
-            broadcastIntent.putExtra("message", result);
-            sendBroadcast(broadcastIntent);
+        protected void onPostExecute(Integer latestVersion) {
+            int currentVersion = 0;
+            try {
+                currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            Utilities.log("Current Version : "+currentVersion);
+            Utilities.log("Latest Version Available : "+latestVersion);
+            if(latestVersion > currentVersion) {
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction(ResponseReceiver.ACTION_UPDATE);
+                broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                broadcastIntent.putExtra("version", latestVersion);
+                sendBroadcast(broadcastIntent);
+            }
+            else Utilities.log("No update available");
             stopSelf();
         }
     }

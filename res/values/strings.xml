@@ -17,4 +17,8 @@
     <string name="assign_menu_button">Menu</string>
     <string name="assign_action_text">Assign action to :</string>
     <string name="delete_flow">Delete</string>
+    <string name="update_available">There is an update available. Would you like to install it now?</string>
+    <string name="download">Download</string>
+    <string name="ignore">Ignore</string>
+    <string name="download_url">http://www.v1shnu.net/mockplayer/download</string>
 </resources>
