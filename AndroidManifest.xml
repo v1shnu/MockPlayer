@@ -16,5 +16,6 @@
         <activity android:name=".activities.StoryDefiner"/>
         <activity android:name=".activities.FirstImageSelector"/>
         <activity android:name=".activities.MockPlayer" android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+        <activity android:name=".activities.UpdateChecker"/>
     </application>
 </manifest>
