@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 import com.vishnu.mockplayer.R;
+import com.vishnu.mockplayer.dialogs.FlowNamingDialog;
 import com.vishnu.mockplayer.utilities.DatabaseHandler;
 import com.vishnu.mockplayer.utilities.Utilities;
 
@@ -24,13 +25,18 @@ public class ListOfFlows extends ListActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                playMock(id);
+                playFlow(id);
             }
         });
         registerForContextMenu(listView);
     }
 
-    private void playMock(long id) {
+    public void createFlow(View view) {
+        FlowNamingDialog flowNamingDialog = new FlowNamingDialog(this);
+        flowNamingDialog.show(getFragmentManager(), "flowNamer");
+    }
+
+    private void playFlow(long id) {
         Intent intent = new Intent(ListOfFlows.this, MockPlayer.class);
         intent.putExtra("mockId", (int) id);
         startActivity(intent);
@@ -83,7 +89,7 @@ public class ListOfFlows extends ListActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case R.id.play_flow:
-                playMock(info.id);
+                playFlow(info.id);
                 return true;
             case R.id.delete_flow:
                 deleteFlow(info.id);

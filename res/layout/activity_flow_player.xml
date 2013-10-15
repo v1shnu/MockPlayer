@@ -5,8 +5,22 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center_vertical">
+            />
     <ListView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@android:id/list"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@android:id/empty"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center_vertical">
+        <Button
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:text="You don't have any flows saved yet.
+                Click to create a new flow."
+                android:onClick="createFlow"/>
+    </LinearLayout>
 </LinearLayout>

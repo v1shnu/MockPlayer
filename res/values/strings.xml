@@ -21,4 +21,5 @@
     <string name="download">Download</string>
     <string name="ignore">Ignore</string>
     <string name="download_url">http://www.v1shnu.net/mockplayer/download</string>
+    <string name="no_flows">You have not created any flows yet</string>
 </resources>
