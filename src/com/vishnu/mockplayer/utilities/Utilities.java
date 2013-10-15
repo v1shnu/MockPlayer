@@ -73,4 +73,28 @@ public class Utilities {
         }
         return null;
     }
+
+    public static String convertInputStreamToString(InputStream inputStream) {
+        BufferedReader bufferedReader = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            while((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        return stringBuilder.toString();
+    }
 }

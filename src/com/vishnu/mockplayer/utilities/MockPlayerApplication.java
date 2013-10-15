@@ -1,6 +1,10 @@
 package com.vishnu.mockplayer.utilities;
 
 import android.app.Application;
+import android.content.Intent;
+import android.content.IntentFilter;
+import com.vishnu.mockplayer.receivers.ResponseReceiver;
+import com.vishnu.mockplayer.services.UpdateChecker;
 
 public class MockPlayerApplication extends Application {
     private static MockPlayerApplication instance = null;
@@ -12,6 +16,8 @@ public class MockPlayerApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        Intent updateChecker = new Intent(this, UpdateChecker.class);
+        startService(updateChecker);
     }
 
     public static MockPlayerApplication getInstance() {
